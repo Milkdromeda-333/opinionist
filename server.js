@@ -1,21 +1,41 @@
 const express = require('express')
+require('dotenv').config()
 const app = express()
 const PORT = 8080
+const connectDB = require('./db/connectDB');
+const morgan = require('morgan')
 
-// parses requests for JSON
-app.use(express.json())
+//  ROUTES
+const postsRouter = require('./routes/postsRouter');
+const commentsRouter = require('./routes/commentsRouter');
+const userRouter = require('./routes/userRouter')
 
-// may need this, may not.
-// app.use(express.urlencoded({ extended: true }));
+// MIDDLEWARE
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(morgan('dev'))
+app.use(express.json()) // parses requests for JSON
+// routing
+app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
+app.use('/user', userRouter);
 
-app.listen(PORT, () => {
-  if(!error)
-        console.log("Server is Successfully Running, and App is listening on port "+ PORT)
-    else 
-        console.log("Error occurred, server can't start", error);
+// START SERVER
+
+// attempts to connect to db and then to port, if theres any error it will be logged
+function start() {
+    try {
+        connectDB(process.env.MONGO_URI)
+        app.listen(PORT, (error) => {
+        if(!error)
+            console.log("Server is Successfully Running, and App is listening on port "+ PORT)
+        else 
+            console.log("Error occurred, server can't start: ", error);
+        }
+        )
     }
-)
+    catch (err) {
+        console.log(err)
+    }
+}
+start()
+
