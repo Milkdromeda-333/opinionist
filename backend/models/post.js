@@ -13,10 +13,6 @@ const postSchema = new mongoose.Schema({
         minLength: 5,
         maxLength: 1500
     },
-    isUpdated: {
-        type: Boolean,
-        default: false
-    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

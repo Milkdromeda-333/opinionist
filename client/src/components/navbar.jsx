@@ -11,12 +11,12 @@ export default function Navbar() {
 	} 
 
 	return (
-		<navbar
+		<nav
 			className='
 			w-full
 			bg-my-dark-blue
 			text-my-cream
-			relative
+			fixed
 			flex flex-col justify-center items-center
 			p-4
 			border-b-2 border-my-cream-tone
@@ -56,12 +56,13 @@ export default function Navbar() {
 			{/* NAV MENU */}
 			<div className={`
             flex flex-col justify-center items-center gap-4
-			absolute left-0 -z-10
-			${isNavOpen ? 'top-full' : '-top-[110vh]'}
+			absolute left-0
+			${isNavOpen ? 'top-[calc(100%+2px)]' : '-top-[100vh]'}
 			transtion-all duration-150 ease
 			p-4
 			w-full
 			bg-my-dark-blue
+			shadow-lg
             sm:flex-row sm:static sm:w-auto sm:p-0 sm:z-0`}
 			>
 				<Link to='/profile' className='hover:text-my-cream-tone'>
@@ -72,6 +73,6 @@ export default function Navbar() {
 				</button>
 
 			</div>
-		</navbar>
+		</nav>
 	);
 }
