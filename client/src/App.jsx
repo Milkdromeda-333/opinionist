@@ -1,15 +1,14 @@
-import React from 'react';
-import Navbar from './components/navbar';
+import React from "react";
+import Navbar from "./components/navbar";
 
 function App() {
-  return (
-    <>
-      <Navbar />
-      <div className="container">
-        <button>click</button>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Navbar />
+			<div className='container'>
+			</div>
+		</>
+	);
 }
 
 export default App;

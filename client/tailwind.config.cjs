@@ -15,9 +15,13 @@ module.exports = {
         'my-light-blue': 'hsl(232, 17%, 35%)',
         'my-purple': 'hsl(309, 6%, 58%)',
         'my-tan': 'hsl(11, 24%, 72%)',
-        'my-cream': 'hsl(21, 35%, 92%)'
-    }
+        'my-cream': 'hsl(21, 35%, 92%)',
+        'my-cream-tone': 'hsl(21, 35%, 80%)'
+      },
+      screens: {
+        'xtra-sm': '328px'
+      }
     },
   },
   plugins: [],
-}
+};
