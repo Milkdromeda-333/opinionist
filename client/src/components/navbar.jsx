@@ -19,7 +19,8 @@ export default function Navbar() {
 			relative
 			flex flex-col justify-center items-center
 			p-4
-			border-b-2 border-my-cream
+			border-b-2 border-my-cream-tone
+			shadow-lg
 			sm:justify-between sm:flex-row sm:border-none'>
 			
 			{/* LOGO */}
@@ -31,8 +32,8 @@ export default function Navbar() {
 				sm:text-2xl'
 			>
 				<span className='mr-1'>Opinionist</span>
-				<FiThumbsDown />
-				<FiThumbsUp />
+				<FiThumbsDown className='text-my-cream-tone' />
+				<FiThumbsUp className='text-my-cream-tone' />
 			</Link>
 
 			{/* HAMBURGER ICON*/}
@@ -61,7 +62,7 @@ export default function Navbar() {
 			p-4
 			w-full
 			bg-my-dark-blue
-            sm:flex-row sm:static sm:w-auto sm:p-0 z-0`}
+            sm:flex-row sm:static sm:w-auto sm:p-0 sm:z-0`}
 			>
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
