@@ -61,7 +61,7 @@ export default function Navbar() {
 			p-4
 			w-full
 			bg-my-dark-blue
-            sm:flex-row sm:static sm:w-auto sm:p-0`}
+            sm:flex-row sm:static sm:w-auto sm:p-0 z-0`}
 			>
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
