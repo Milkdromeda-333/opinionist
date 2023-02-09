@@ -10,7 +10,6 @@ export default function Home() {
     
     return (
         <main className="
-        bg-my-cream
         w-full 
         grid grid-cols-1
         px-4

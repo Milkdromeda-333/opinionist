@@ -4,10 +4,10 @@ import Home from "./pages/Home";
 
 function App() {
 	return (
-		<>
+		<div className="min-h-[100vh] bg-my-cream">
 			<Navbar />
 			<Home className='font-regular' />
-		</>
+		</div>
 	);
 }
 
