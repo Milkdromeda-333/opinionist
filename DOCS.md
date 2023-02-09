@@ -17,5 +17,4 @@ Challenging thinhgs I've done:
 
 TOFIX:
 - z index of navbar components
-- post avatar size
-- colors
+- figure out layout for posts

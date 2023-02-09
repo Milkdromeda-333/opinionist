@@ -12,12 +12,14 @@ export default function Post(data) {
         pb-2
         text-my-cream
         bg-my-light-blue
-        md:w-1/3"
+        "
         >
 
             <h2>{title}</h2>
             <span className=" max-md:hidden">@{userName}</span>
             <p className="break-all">{description}</p>
+
+            {/* is hidden for larger screens */}
             <div className="flex flex-row justify-between items-center gap-4 mt-2 md:hidden">
                 <div className="flex flex-row justify-center items-center gap-2">
                     <img
@@ -49,9 +51,10 @@ export default function Post(data) {
                     </div>
                     
                 </div>
-
+                
+                {/* is hidden for smaller screens */}
                 <div className="flex flex-row justify-end items-center gap-4 max-md:hidden">
-                    <span> {datePosted} @{userName} </span>
+                    <span className="flex flex-col">@{userName} </span>
                     <img
                         src="https://api.multiavatar.com/Starcrasher.png" alt="avater"
                         className="w-10"
