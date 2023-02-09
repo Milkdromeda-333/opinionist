@@ -1,7 +1,11 @@
 import { FiThumbsDown, FiThumbsUp } from "react-icons/fi";
+import {BiSend} from 'react-icons/bi'
+import { useState } from "react";
 
 export default function Post(data) {
     const { title, description, datePosted, userName } = data;
+
+    const [btnEffect, setBtnEffect] = useState(false)
 
     // TODO add a function that handles dates that shows how long ago the post was posted
 
@@ -66,7 +70,6 @@ export default function Post(data) {
         <div className="
         w-full
         p-4
-        pb-2
         text-my-cream
         bg-my-light-blue
         ">
@@ -110,9 +113,28 @@ export default function Post(data) {
                 </div>
             </div>
 
-            {/* comments */}
-            <div className="">
-                
+            {/* comment input */}
+            <div className="flex flex-row justify-evenly items-center gap-2">
+                <textarea type="text" name="comment" id="comment" placeholder="Comment" className="
+                w-full
+                rounded-lg
+                text-my-dark-blue
+                h-8
+                " />
+                <button className={`
+                ${btnEffect && "animate-wiggle"}
+                    p-1
+                    text-xl
+                    border-2
+                    rounded-full
+                    hover:text-my-cream-tone
+                    hover:border-my-cream-tone`}
+                    onClick={() => {
+                         setBtnEffect(true);
+                    }}
+                    onAnimationEnd={() => setBtnEffect(false)}>
+                    <BiSend/>
+                </button>
             </div>
         </div>
     )
