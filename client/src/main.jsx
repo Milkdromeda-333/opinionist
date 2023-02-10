@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import Home from "./pages/Home"
 import './index.css'
 import { AppContext } from './components/context/AppContext'
+import Profile from "./pages/Profile"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -12,6 +14,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    children: [
+      {
+        path: "", element: <Home />
+    },
+    {
+      path: "/profile", element: <Profile />
+    }
+    ]
   },
 ]);
 

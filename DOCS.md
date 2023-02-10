@@ -1,3 +1,5 @@
+
+
 export default function Home(){
 
     return (
@@ -68,6 +70,7 @@ const TextArea = () => {
 
 ReactDOM.render(<TextArea />, document.getElementById('app'))
 ```
+- Had a hard time centering a svg with a span, and asked for help from the dev community. None of it worked but was able to solve it after playing around in the dev tools. I added a di around he svg and gave it display: inline. 
 
 
 

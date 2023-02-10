@@ -1,14 +1,17 @@
+import { useState, useRef, useLayoutEffect } from "react";
+import CommentsSection from "./CommentsSection"
 import { FiThumbsDown, FiThumbsUp } from "react-icons/fi";
 import { BiSend } from 'react-icons/bi'
-import {AiOutlineComment} from 'react-icons/ai'
-import { useState, useRef, useLayoutEffect } from "react";
+import {VscCommentDiscussion} from 'react-icons/vsc'
 
-    // TODO add a function that handles dates that shows how long ago the post was posted
+// TODO add a function that handles dates that shows how long ago the post was posted
+ 
 export default function Post(data) {
     const { title, description, datePosted, userName } = data;
     const ref = useRef();
 
     const [btnEffect, setBtnEffect] = useState(false)
+    const [isCommentsActive, setIsCommentsActive] = useState(false);
 
     // used for textarea auto-resizing
     const [commentValue, setCommentValue] = useState('');
@@ -33,7 +36,26 @@ export default function Post(data) {
     ref.current.style.height = next;
     autoHeight.current = next;
     ref.current.style.overflow = "auto";
-  }, [commentValue, ref, autoHeight]);
+    }, [commentValue, ref, autoHeight]);
+    
+    const fakeCommentsArr = [
+        {
+            comment: "ccdvdvrgtg",
+            username: "jjrr",
+            isUpdated: false,
+            createdAt: "11/07"
+        },
+        {
+            comment: "frnvuihbfguivurhuguirghbrhbv hfuiefgivb fedfgbhevb. nesdbvhfvbe. efefef .",
+            username: "vfrr45",
+            isUpdated: true,
+            createdAt: "11/07"
+        }
+    ];
+
+    const toggleCommentSec = () => {
+        setIsCommentsActive(prev=> !prev)
+    }
 
     return (
         <div className="
@@ -57,7 +79,7 @@ export default function Post(data) {
 
             {/* post contents */}
             <div className="">
-                <h2 className="font-bold text-lg m-2">{title}</h2>
+                <h2 className="font-bold text-lg my-2">{title}</h2>
                 <p>{ description }</p>
             </div>
 
@@ -115,14 +137,21 @@ export default function Post(data) {
                 </button>
             </div>
 
-            {/* view more comments */}
-            <div className="
-            p-2
-            cursor-pointer
-            grid place-items-center grid-flow-row">
-                <AiOutlineComment className="text-3xl" />
-                <span>view comments</span>
-            </div>
+            {/* view comments */}
+            {!isCommentsActive &&
+                <div className="
+                p-2
+                cursor-pointer
+                flex flex-row justify-center items-center gap-2
+                hover:text-my-tan"
+                onClick={toggleCommentSec}>
+                    <VscCommentDiscussion className="text-3xl" />
+                    {/*!TODO add number of comments */}
+                     <span className="">view comments</span>
+                    </div>
+            }
+            {isCommentsActive &&
+                <CommentsSection comments={fakeCommentsArr} toggleComments={setIsCommentsActive} />}
         </div>
     )
 }
