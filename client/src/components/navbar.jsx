@@ -1,5 +1,7 @@
-import { useState } from "react";import { Link } from "react-router-dom";
-import { FiThumbsDown, FiThumbsUp } from "react-icons/fi";
+import Logo from "./Logo"
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 
 export default function Navbar() {
@@ -23,18 +25,7 @@ export default function Navbar() {
 			shadow-lg
 			sm:justify-between sm:flex-row sm:border-none'>
 			
-			{/* LOGO */}
-			<Link to='/'className='
-				flex flex-row items-center 
-				font-decor
-				xtra-sm:text-xl
-				min-xtra-sm:text-2xl
-				sm:text-2xl'
-			>
-				<span className='mr-1'>Opinionist</span>
-				<FiThumbsDown className='text-my-cream-tone' />
-				<FiThumbsUp className='text-my-cream-tone' />
-			</Link>
+			<Logo />
 
 			{/* HAMBURGER ICON*/}
 			{isNavOpen ?
