@@ -9,6 +9,8 @@ export default function AuthForm() {
         password: ''
     })
 
+    const [isUserCreatingAcc, setIsUserCreatingAcc] = useState(false);
+
     const { userState, setUserState, setIsLoggedIn } = useContext(context);
     
     const navigate = useNavigate();
@@ -28,6 +30,19 @@ export default function AuthForm() {
         navigate("/app");
     }
 
+    const handleCreateNewUser = (e) => {
+        e.preventDefault()
+        setUserState(inputs)
+        setIsLoggedIn(true)
+        navigate("/app");
+    }
+
+    const toggleForm = () => {
+        setIsUserCreatingAcc(prev => !prev)
+    }
+
+    
+
     return (
         <form className="
             flex flex-col justify-center items-center gap-4
@@ -46,7 +61,7 @@ export default function AuthForm() {
                      name="username"
                      id="username"
                      onChange={handleInput}
-                     placeholder="Enter your username"
+                     placeholder={isUserCreatingAcc ? "Create a username" : "Enter your username"}
                      required
                 
                      className="
@@ -67,7 +82,7 @@ export default function AuthForm() {
                      name="password"
                      id="password"
                      onChange={handleInput}
-                     placeholder="Enter your password"
+                     placeholder={isUserCreatingAcc ? "Create new password":"Enter your password"}
                      required
                 
                      className="
@@ -79,14 +94,20 @@ export default function AuthForm() {
                 </div>
             </div>
 
-            <button onClick={ handleSignIn } className="
+            <button onClick={ isUserCreatingAcc ? handleCreateNewUser : handleSignIn} className="
             bg-my-dark-blue
             text-white
             w-1/2
             py-2
-            mt-2">Login</button>
+            mt-2">
+                {isUserCreatingAcc ? "Sign up" : "Login"}
+            </button>
 
-            <span className="cursor-pointer">Forgot you password?</span>
+            <span className="cursor-pointer underline">Forgot you password?</span>
+            <span onClick={toggleForm}
+                className="cursor-pointer underline">
+                {isUserCreatingAcc ? "Have an account already? Signup" : "Need an account? Create one here."}
+            </span>
         </form>
     )
 }
