@@ -1,10 +1,30 @@
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { context } from "./context/User";
 
 export default function AuthForm() {
+
+    const [inputs, setInputs] = useState({
+        username: '',
+        password: ''
+    })
+
+    const { userState, setUserState, setIsLoggedIn } = useContext(context);
     
     const navigate = useNavigate();
 
-    const handleSignIn = () => {
+    const handleInput = (e) => {
+        const { name, value } = e.target;
+        setInputs(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    } 
+
+    const handleSignIn = (e) => {
+        e.preventDefault()
+        setUserState(inputs)
+        setIsLoggedIn(true)
         navigate("/app");
     }
 
@@ -25,13 +45,14 @@ export default function AuthForm() {
                     type="text"
                      name="username"
                      id="username"
+                     onChange={handleInput}
                      placeholder="Enter your username"
                      required
                 
                      className="
-                     bg-slate-300
+                     bg-neutral-300
                      w-full
-                     py-2"
+                     p-2"
                     />
                 </div>
 
@@ -45,13 +66,14 @@ export default function AuthForm() {
                     type="text"
                      name="password"
                      id="password"
+                     onChange={handleInput}
                      placeholder="Enter your password"
                      required
                 
                      className="
-                     bg-slate-300
+                     bg-neutral-300
                      w-full
-                     py-2"
+                     p-2"
                     />
                 
                 </div>

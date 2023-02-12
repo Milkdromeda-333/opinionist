@@ -1,16 +1,26 @@
 import Logo from "./Logo"
+import { context } from "./context/User";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
 
 export default function Navbar() {
 
+	const navigate = useNavigate();
+	const { setUserState } = useContext(context);
+
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
-	function toggleHamburger() {
+	const toggleHamburger = () => {
 		setIsNavOpen(prev => !prev)
-	} 
+	}
+
+	const handleLogout = () => {
+		setUserState({})
+		navigate("/")
+	}
 
 	return (
 		<nav
@@ -59,7 +69,7 @@ export default function Navbar() {
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
 				</Link>
-				<button className='no-underline list-none hover:text-my-cream-tone'>
+				<button onClick={handleLogout} className='no-underline list-none hover:text-my-cream-tone'>
 					Logout
 				</button>
 

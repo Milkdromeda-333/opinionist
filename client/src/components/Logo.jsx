@@ -4,7 +4,7 @@ import { FiThumbsDown, FiThumbsUp } from "react-icons/fi";
 export default function Logo(){
 
     return (
-        <Link to='/'className='
+        <Link to='/app'className='
 				flex flex-row items-center 
 				font-decor
 				xtra-sm:text-xl

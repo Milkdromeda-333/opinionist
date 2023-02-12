@@ -1,13 +1,24 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Home from "./pages/Home";
+import {useContext} from "react";
+import { Routes, Route, Navigate  } from "react-router-dom";
+import {context} from "./components/context/User"
+// routes
+import Layout from "./components/Layout"
+import Home from "./pages/Home"
+import Auth from "./pages/Auth"
+import Profile from "./pages/Profile"
 
 function App() {
+	const { isLoggedIn } = useContext(context);
+	
 	return (
-		<div className="min-h-[100vh] bg-my-cream">
-			<Navbar />
-			<Outlet />
+		<div>
+			<Routes>
+				<Route path="/" element={<Auth/> }/>
+				<Route element={<Layout />}>
+					<Route path="/app" element={isLoggedIn ? <Home /> : <Navigate to="/" />} />
+					<Route path="/profile" element={<Profile />} />
+				</Route>
+			</Routes>
 		</div>
 	);
 }
