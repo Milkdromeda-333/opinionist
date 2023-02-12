@@ -2,9 +2,9 @@ import { createContext, useEffect } from "react";
 import { useState } from "react";
 import { getPosts } from '../axios';
 
-const ContextProvider = createContext();
+const appContext = createContext();
 
-function AppContext(props) {
+function App(props) {
 
     const [posts, setPosts] = useState([])
 
@@ -14,10 +14,10 @@ function AppContext(props) {
     }, [])
     
 return (
-        <ContextProvider.Provider value={posts}>
+        <appContext.Provider value={posts}>
             {props.children}
-        </ContextProvider.Provider>
+        </appContext.Provider>
 );
 }
 
-export {AppContext, ContextProvider}
+export {appContext, App}

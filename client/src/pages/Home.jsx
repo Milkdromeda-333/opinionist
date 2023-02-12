@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { ContextProvider } from "../components/context/AppContext"
+import { appContext } from "../components/context/App"
 
 import Post from "../components/Post";
 
 export default function Home() {
     
-    const posts = useContext(ContextProvider);
+    const posts = useContext(appContext);
     const postsArr = posts.map(data => <Post {...data} key={data.title} />)
     
     return (

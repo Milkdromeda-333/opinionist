@@ -9,7 +9,7 @@ export default function Home(){
 
 NOTES:
 
-- When you face burn-out and are tired, and fel like giving up, take a break. Come back with a plan. You're tired, an a fresh perspective will be useful.
+- When you face burn-out and are tired, and fel like giving up, take a break. Come back with a plan. You're tired, an a fresh perspective will be useful. (This has helped me withing the span of this project 2x)
 
 Challenging things I've done:
 
@@ -71,9 +71,19 @@ const TextArea = () => {
 ReactDOM.render(<TextArea />, document.getElementById('app'))
 ```
 - Had a hard time centering a svg with a span, and asked for help from the dev community. None of it worked but was able to solve it after playing around in the dev tools. I added a di around he svg and gave it display: inline. 
-
-
+- FINALLY internalized how context is to be set up. I use the initializer to consume the data and wrap it around the children passed into the component. And, I use the entire component to import the provider and wrap the component/jsx around the object rendered in main.jsx.
 
 TOFIX:
 - z index of navbar components
-- figure out layout for posts
+
+---
+
+Today' todo:
+## Make signin page toggle
+- use useState to toggle between the two states.
+To do this i will have a state that toggles between true and false, if isCreatingAccount is false, theyre logging in and use the words associated with that and use the handleLogIn function for the button and vice versa
+## Protect the /app route
+
+
+## Work on server!
+- creating an auth process wit JWTs (and cookies..?).
