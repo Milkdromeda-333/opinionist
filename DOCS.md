@@ -72,6 +72,7 @@ ReactDOM.render(<TextArea />, document.getElementById('app'))
 ```
 - Had a hard time centering a svg with a span, and asked for help from the dev community. None of it worked but was able to solve it after playing around in the dev tools. I added a di around he svg and gave it display: inline. 
 - FINALLY internalized how context is to be set up. I use the initializer to consume the data and wrap it around the children passed into the component. And, I use the entire component to import the provider and wrap the component/jsx around the object rendered in main.jsx.
+- I had an issue because I never saved the new user I was creating on signup in the server, so I went over a past project where I knew I completed my current task, and seen what I was missing... when  a new resouce is create mongo will add the __v field.
 
 TOFIX:
 - z index of navbar components
@@ -79,11 +80,5 @@ TOFIX:
 ---
 
 Today' todo:
-## Make signin page toggle
-- use useState to toggle between the two states.
-To do this i will have a state that toggles between true and false, if isCreatingAccount is false, theyre logging in and use the words associated with that and use the handleLogIn function for the button and vice versa
-## Protect the /app route
-
-
-## Work on server!
-- creating an auth process wit JWTs (and cookies..?).
+## Make server able to authenticate accounts using JWT's
+- [] go back over vschool curriculum for a refresher

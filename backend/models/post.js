@@ -7,15 +7,19 @@ const postSchema = new mongoose.Schema({
         minLength: 5,
         maxLength: 50
     },
-    datePosted: new Date(),
+    datePosted: {
+        type: Date,
+        default: Date.now
+    },
     description: {
         type: String,
         minLength: 5,
         maxLength: 1500
     },
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 });
 
