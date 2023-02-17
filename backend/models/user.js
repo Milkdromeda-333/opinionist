@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -22,6 +23,30 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// userSchema.pre('save', function (next) {
+//     const user = this;
+//     if (!user.isModified("password")) return next();
+
+//     bcrypt.genSalt(saltRounds, function (err, salt) {
+//         if (err) return next(err);
+//         bcrypt.hash(user.password, salt, function (err, hash) {
+//             if (err) next(err);
+//             user.password = hash;
+//             return next();
+//         });
+//     });
+// });
+
+userSchema.pre("save", function (next) {
+    const user = this;
+    if (!user.isModified("password")) return next();
+    bcrypt.hash(user.password, 10, (err, hash) => {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+    });
+});
+
 // returns user without password
 userSchema.methods.withoutPassword = function () {
     user = this.toObject();
@@ -35,6 +60,8 @@ userSchema.methods.checkPassword = function (userAttempt, callback) {
         return callback(new Error("Username or Passward are incorrect"));
     }
     return callback(null, true);
+
+
 };
 
 module.exports = mongoose.model('User', userSchema);
