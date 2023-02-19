@@ -1,8 +1,12 @@
-import Img from "../assets/undraw_like_dislike_re_dwcj.svg"
+import { useState } from "react";
+import Img from "../assets/undraw_like_dislike_re_dwcj.svg";
 import AuthForm from "../components/AuthForm"
 import Logo from "../components/Logo";
 
-export default function Auth(){
+export default function Auth() {
+    
+    
+    const [isUserCreatingAcc, setIsUserCreatingAcc] = useState(false);
 
     return (
         <div className="bg-my-cream">
@@ -34,13 +38,13 @@ export default function Auth(){
                     <div>
                         <span className="">Got an opinion? Share it here.</span>
                         {/* change to be dynamic */}
-                        <h1 className="text-4xl">Login/Signup</h1>
+                        <h1 className="text-4xl">{ isUserCreatingAcc ? "Create an account.": "Sign in." }</h1>
                     </div>
 
                     <img src={Img} alt="girl voting" className="w-min h-[300px]" />
                 </div>
 
-                <AuthForm />
+                <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} />
             </div>
         </div>
     )

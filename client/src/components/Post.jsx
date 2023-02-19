@@ -1,42 +1,24 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState} from "react";
 import CommentsSection from "./CommentsSection"
 import { FiThumbsDown, FiThumbsUp } from "react-icons/fi";
 import { BiSend } from 'react-icons/bi'
-import {VscCommentDiscussion} from 'react-icons/vsc'
+import { VscCommentDiscussion } from 'react-icons/vsc'
+import ResizableTextArea from "./ResizableTextarea";
 
 // TODO add a function that handles dates that shows how long ago the post was posted
  
 export default function Post(data) {
     const { title, description, datePosted, userName } = data;
-    const ref = useRef();
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
 
-    // used for textarea auto-resizing
-    const [commentValue, setCommentValue] = useState('');
+    const [textInput, setTextInput] = useState('');
 
-     // This only tracks the auto-sized height so we can tell if the user has manually resized
-    const autoHeight = useRef();
-
-    useLayoutEffect(() => {
-    if (!ref.current) {
-      return;
+    const handlePostComment = () => {
+        setBtnEffect(true);
+        setTextInput('');
     }
-    if (
-      autoHeight.current !== undefined &&
-      ref.current.style.height !== autoHeight.current
-    ) {
-      // don't auto size if the user has manually changed the height
-      return;
-    }
-    ref.current.style.height = "30px";
-    ref.current.style.overflow = "hidden";
-    const next = `${ref.current.scrollHeight}px`;
-    ref.current.style.height = next;
-    autoHeight.current = next;
-    ref.current.style.overflow = "auto";
-    }, [commentValue, ref, autoHeight]);
     
     const fakeCommentsArr = [
         {
@@ -54,7 +36,7 @@ export default function Post(data) {
     ];
 
     const toggleCommentSec = () => {
-        setIsCommentsActive(prev=> !prev)
+        setIsCommentsActive(prev => !prev)
     }
 
     return (
@@ -107,19 +89,15 @@ export default function Post(data) {
 
             {/* comment input */}
             <div className="flex flex-row justify-evenly items-center gap-2">
-                <textarea type="text"
-                name="comment"
-                id="comment"
-                placeholder="Comment"
-                ref={ref}
-                className="
-                w-full
-                rounded-lg
-                text-my-dark-blue
-                p-2
-                "
-                value={commentValue}
-                onChange={event => setCommentValue(event.target.value)} />
+               
+                <ResizableTextArea
+                    textInput={textInput}
+                    setTextInput={setTextInput}
+                    name="comment"
+                    id="comment"
+                    placeholder="Comment"
+                    height="30px"
+                />
                 
                 <button className={`
                 ${btnEffect && "animate-wiggle"}
@@ -129,9 +107,7 @@ export default function Post(data) {
                     rounded-full
                     hover:text-my-cream-tone
                     hover:border-my-cream-tone`}
-                    onClick={() => {
-                         setBtnEffect(true);
-                    }}
+                    onClick={handlePostComment}
                     onAnimationEnd={() => setBtnEffect(false)}>
                     <BiSend/>
                 </button>

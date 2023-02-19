@@ -1,6 +1,6 @@
 import Logo from "./Logo"
 import { context } from "./context/User";
-
+import {appContext} from "./context/App"
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ export default function Navbar() {
 
 	const navigate = useNavigate();
 	const { setUserState } = useContext(context);
+	const { setIsNewPostOpen } = useContext(appContext);
 
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -20,6 +21,11 @@ export default function Navbar() {
 	const handleLogout = () => {
 		setUserState({})
 		navigate("/")
+	}
+
+	const toggleNewPostModal = () => {
+		setIsNavOpen(prev => !prev)
+		setIsNewPostOpen(true);
 	}
 
 	return (
@@ -66,6 +72,14 @@ export default function Navbar() {
 			shadow-lg
             sm:flex-row sm:static sm:w-auto sm:p-0 sm:z-0`}
 			>
+				<button onClick={toggleNewPostModal}
+					className='
+					no-underline
+					list-none
+					hover:text-my-cream-tone'
+				>
+					New Post
+				</button>
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
 				</Link>
@@ -74,6 +88,7 @@ export default function Navbar() {
 				</button>
 
 			</div>
+
 		</nav>
 	);
 }

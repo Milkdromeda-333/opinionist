@@ -14,11 +14,17 @@ NOTES:
 Challenging things I've done:
 
 - Tried different solutions based on my goal. I tried bootstrap-react at first because my goal was fast styling. I tried and failed to get Bootstrap to completely cooperate, and could forsee problems developing with it given its limited documentation, so I switched over to Tailwind, and did not regret.
+
 - Figured out how to customize Tailwind, and played around with designing responsively with my customized class names.
+
 - I wanted to implement a comment input that would resize as the person typed so thta there would be no scroll overflow, so I tried different things such as using an input instead, looking at how other websites would've implememted it, etc. I eventually came upon a stackoverflow question that was using jquery to do it, but i found an answer that showed a way to do it with react and was able to implement and troubleshoot it myself.
+
 Heres the link: https://stackoverflow.com/a/68638979/18193299
+
 My implementaion is in /components/Post.jsx
+
 Heres the code:
+
 ```
 const {
   useLayoutEffect,
@@ -70,20 +76,14 @@ const TextArea = () => {
 
 ReactDOM.render(<TextArea />, document.getElementById('app'))
 ```
+
 - Had a hard time centering a svg with a span, and asked for help from the dev community. None of it worked but was able to solve it after playing around in the dev tools. I added a di around he svg and gave it display: inline. 
+
 - FINALLY internalized how context is to be set up. I use the initializer to consume the data and wrap it around the children passed into the component. And, I use the entire component to import the provider and wrap the component/jsx around the object rendered in main.jsx.
+
+- Learned that you cant style an imported component with classNamr attribute. You have to style it from within its component.
 
 TOFIX:
 - z index of navbar components
 
 ---
-
-Today' todo:
-## Make signin page toggle
-- use useState to toggle between the two states.
-To do this i will have a state that toggles between true and false, if isCreatingAccount is false, theyre logging in and use the words associated with that and use the handleLogIn function for the button and vice versa
-## Protect the /app route
-
-
-## Work on server!
-- creating an auth process wit JWTs (and cookies..?).
