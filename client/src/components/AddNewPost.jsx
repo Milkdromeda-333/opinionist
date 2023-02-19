@@ -2,23 +2,26 @@ import { useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import ResizableTextArea from './ResizableTextarea'
 
-export default function AddNewPost() {
+export default function AddNewPost({closeModal, isNewPostOpen}) {
 
     const [textInput, setTextInput] = useState('');
+    console.log(isNewPostOpen)
 
     return (
-        <div className='
+        <div className={`
         bg-my-light-blue
         w-full
         h-[100vh]
         p-4
         fixed
-        top-0
         left-0
         z-[999]
-        flex flex-col justify-center'
+        flex flex-col justify-center
+        transition-all
+        ${isNewPostOpen ? "top-0" : "top-full"}`}
         >
-            <RxCross2 className='
+            <RxCross2 onClick={closeModal}
+            className='
             absolute
             top-4
             right-4
@@ -33,6 +36,7 @@ export default function AddNewPost() {
             flex flex-col justify-center items-center gap-4
             text-my-cream'
             >
+                <h1 className='text-xl'>Create a new post:</h1>
 
                 <div className="
                 flex flex-col items-center
@@ -74,7 +78,7 @@ export default function AddNewPost() {
                     name="post"
                     id="post"
                     placeholder="Enter your post details here."
-                        height="200px"
+                    height="200px"
                     />
                     
                     <button className='

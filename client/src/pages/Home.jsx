@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { appContext } from "../components/context/App"
 import AddNewPost from "../components/AddNewPost";
 
@@ -6,8 +6,12 @@ import Post from "../components/Post";
 
 export default function Home() {
     
-    const {posts, isNewPostOpen} = useContext(appContext);
+    const {posts, isNewPostOpen, setIsNewPostOpen} = useContext(appContext);
     const postsArr = posts.map(data => <Post {...data} key={data.title} />)
+
+    const toggleModal = () => {
+        setIsNewPostOpen(false);
+    }
     
     return (
         <main className="
@@ -26,7 +30,7 @@ export default function Home() {
                 {postsArr}
             </div>
 
-           {isNewPostOpen && <AddNewPost /> }
+            <AddNewPost closeModal={toggleModal} isNewPostOpen={isNewPostOpen}  />
 
         </main>
     )
