@@ -7,6 +7,7 @@ const appContext = createContext();
 function App(props) {
 
     const [posts, setPosts] = useState([])
+    const [isNewPostOpen, setIsNewPostOpen] = useState(false);
 
     useEffect(() => {
         const postsArr = getPosts()
@@ -14,7 +15,10 @@ function App(props) {
     }, [])
     
 return (
-        <appContext.Provider value={posts}>
+    <appContext.Provider value={
+        {posts,
+        isNewPostOpen,
+        setIsNewPostOpen}}>
             {props.children}
         </appContext.Provider>
 );
