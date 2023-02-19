@@ -24,6 +24,7 @@ export default function Navbar() {
 	}
 
 	const toggleNewPostModal = () => {
+		setIsNavOpen(prev => !prev)
 		setIsNewPostOpen(true);
 	}
 

@@ -2,14 +2,12 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { context } from "./context/User";
 
-export default function AuthForm() {
+export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
 
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
     })
-
-    const [isUserCreatingAcc, setIsUserCreatingAcc] = useState(false);
 
     const { userState, setUserState, setIsLoggedIn } = useContext(context);
     
@@ -40,8 +38,6 @@ export default function AuthForm() {
     const toggleForm = () => {
         setIsUserCreatingAcc(prev => !prev)
     }
-
-    
 
     return (
         <form className="
