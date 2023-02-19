@@ -66,6 +66,9 @@ export default function Navbar() {
 			shadow-lg
             sm:flex-row sm:static sm:w-auto sm:p-0 sm:z-0`}
 			>
+				<button className='no-underline list-none hover:text-my-cream-tone'>
+					New Post
+				</button>
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
 				</Link>
