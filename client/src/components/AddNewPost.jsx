@@ -30,12 +30,15 @@ export default function AddNewPost() {
             />
 
             <form className='
-            flex flex-col justify-center items-center
-            text-my-cream'>
+            flex flex-col justify-center items-center gap-4
+            text-my-cream'
+            >
 
                 <div className="
-                flex flex-col items-center 
-                w-1/2">
+                flex flex-col items-center
+                w-11/12
+                md:w-1/2"
+                >
 
                     <label htmlFor="title"
                         className='
@@ -55,7 +58,9 @@ export default function AddNewPost() {
 
                 <div className="
                 flex flex-col items-center 
-                w-1/2">
+                w-11/12
+                md:w-1/2"
+                >
 
                     <label htmlFor="title"
                     className='
@@ -80,6 +85,8 @@ export default function AddNewPost() {
                     ml-auto
                     mt-4
                     outline-my-cream
+                    w-full
+                    md:w-auto
                     hover:outline'
                         >Submit</button>
                         
