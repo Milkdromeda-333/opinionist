@@ -15,11 +15,11 @@ export default function Auth() {
             w-full
 			bg-my-dark-blue
 			text-my-cream
-			fixed
 			flex flex-col justify-center items-center
-			p-4
+			h-16
 			border-b-2 border-my-cream-tone
 			shadow-lg
+            px-4
 			sm:justify-between sm:flex-row sm:border-none
             ">
                 <Logo />
@@ -28,20 +28,24 @@ export default function Auth() {
             {/* page */}
             <div className="
             text-my-dark-blue
-            flex flex-row justify-center items-center
-            min-h-[100vh]
+            flex flex-col justify-center
+            pt-4
+            min-h-[91vh]
+            md:flex-row md:items-center
             ">
                 <div className="
                 flex flex-col justify-evenly items-center gap-8
                 w-full"
                 >
-                    <div>
+                    <div className="max-md:text-center">
                         <span className="">Got an opinion? Share it here.</span>
-                        {/* change to be dynamic */}
-                        <h1 className="text-4xl">{ isUserCreatingAcc ? "Create an account.": "Sign in." }</h1>
+
+                        <h1 className="text-4xl">
+                            {isUserCreatingAcc ? "Create an account." : "Log in."}
+                        </h1>
                     </div>
 
-                    <img src={Img} alt="girl voting" className="w-min h-[300px]" />
+                    <img src={Img} alt="girl voting" className="w-min h-0 md:h-[300px]" />
                 </div>
 
                 <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} />
