@@ -2,14 +2,12 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { context } from "./context/User";
 
-export default function AuthForm() {
+export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
 
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
     })
-
-    const [isUserCreatingAcc, setIsUserCreatingAcc] = useState(false);
 
     const { userState, setUserState, setIsLoggedIn } = useContext(context);
     
@@ -41,14 +39,14 @@ export default function AuthForm() {
         setIsUserCreatingAcc(prev => !prev)
     }
 
-    
-
     return (
         <form className="
             flex flex-col justify-center items-center gap-4
             w-full"
         >
-            <div className="w-1/2">
+            <div className="
+            w-11/12
+            md:w-1/2">
 
                 {/* username sec */}
                 <div className="
@@ -67,7 +65,10 @@ export default function AuthForm() {
                      className="
                      bg-neutral-300
                      w-full
-                     p-2"
+                     p-2
+                     outline-[3px]
+                     outline-my-dark-blue
+                     focus:outline"
                     />
                 </div>
 
@@ -88,7 +89,10 @@ export default function AuthForm() {
                      className="
                      bg-neutral-300
                      w-full
-                     p-2"
+                     p-2
+                     outline-[3px]
+                     outline-my-dark-blue
+                     focus:outline"
                     />
                 
                 </div>
@@ -99,14 +103,17 @@ export default function AuthForm() {
             text-white
             w-1/2
             py-2
-            mt-2">
+            mt-2
+            outline-my-light-blue
+            outline-[3px]
+            hover:outline">
                 {isUserCreatingAcc ? "Sign up" : "Login"}
             </button>
 
             <span className="cursor-pointer underline">Forgot you password?</span>
             <span onClick={toggleForm}
                 className="cursor-pointer underline">
-                {isUserCreatingAcc ? "Have an account already? Signup" : "Need an account? Create one here."}
+                {isUserCreatingAcc ? "Have an account already? Signup" : "Create a new account."}
             </span>
         </form>
     )
