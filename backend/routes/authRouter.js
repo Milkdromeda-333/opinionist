@@ -32,7 +32,7 @@ authRouter.post('/signup', (req, res, next) => {
             }
             const token = createToken(newUser.withoutPassword());
             res.status(201);
-            return res.send(token);
+            return res.send({ token: token, user: savedUser.username });
         });
     });
 });

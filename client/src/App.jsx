@@ -8,14 +8,14 @@ import Auth from "./pages/Auth"
 import Profile from "./pages/Profile"
 
 function App() {
-	const { isLoggedIn } = useContext(context);
+	const { user } = useContext(context);
 	
 	return (
 		<div>
 			<Routes>
 				<Route path="/" element={<Auth/> }/>
 				<Route element={<Layout />}>
-					<Route path="/app" element={isLoggedIn ? <Home /> : <Navigate to="/" />} />
+					<Route path="/app" element={user ? <Home /> : <Navigate to="/" />} />
 					<Route path="/profile" element={<Profile />} />
 				</Route>
 			</Routes>

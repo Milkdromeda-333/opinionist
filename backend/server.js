@@ -15,6 +15,7 @@ const authRouter = require('./routes/authRouter');
 // MIDDLEWARE
 
 app.use(morgan('dev'));
+app.use(require('cors'));
 app.use(express.json()); // parses requests for JSON
 
 // routing

@@ -1,15 +1,18 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { context } from "./context/User";
+import axios from 'axios';
 
-export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
-
-    const [inputs, setInputs] = useState({
+export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, showErrComponent }) {
+    
+    const inputDefault = {
         username: '',
         password: ''
-    })
+    }
 
-    const { userState, setUserState, setIsLoggedIn } = useContext(context);
+    const [inputs, setInputs] = useState(inputDefault);
+
+    const { user } = useContext(context);
     
     const navigate = useNavigate();
 
@@ -22,16 +25,52 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
     } 
 
     const handleSignIn = (e) => {
-        e.preventDefault()
-        setUserState(inputs)
-        setIsLoggedIn(true)
-        navigate("/app");
+        e.preventDefault();
+        // if (!inputs.username || !inputs.password) {
+        //     showErrComponent(true);
+        //     setInputs(inputDefault);
+        //     return;
+        // }
+
+        // axios.post('/auth/signup', inputs)
+        // .then(token => localStorage.setItem('auth', token))
+        // .catch(err => {
+        //     e.preventDefault();
+        //     showErrComponent(true);
+        //     console.log(err);
+        //     setInputs(inputDefault);
+        //     return;
+        // });
+        // setInputs(inputDefault);
+        // navigate("/app");
+
+        if (inputs.username && inputs.password) {
+            axios.post('/auth/signup', inputs)
+            .then(token => localStorage.setItem('auth', token))
+            .catch(err => {
+                e.preventDefault();
+                showErrComponent(true);
+                console.log(err);
+                setInputs(inputDefault);
+                return;
+            });
+            setInputs(inputDefault);
+            navigate("/app");
+            return
+        }
+        showErrComponent(true);
+        setInputs(inputDefault);
+
     }
 
     const handleCreateNewUser = (e) => {
         e.preventDefault()
+        if (!user) {
+            setShowErr(true);
+            return;
+        }
         setUserState(inputs)
-        setIsLoggedIn(true)
+        createUser(inputs)
         navigate("/app");
     }
 
@@ -54,14 +93,15 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
                 w-full
                 mb-4">
                     <label htmlFor="username">Username:</label>
+
                     <input
                     type="text"
-                     name="username"
+                    name="username"
+                    value={inputs.username}
                      id="username"
                      onChange={handleInput}
                      placeholder={isUserCreatingAcc ? "Create a username" : "Enter your username"}
                      required
-                
                      className="
                      bg-neutral-300
                      w-full
@@ -78,21 +118,23 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
                 w-full"
                 >
                     <label htmlFor="password">Password:</label>
+
                     <input
-                    type="text"
-                     name="password"
-                     id="password"
-                     onChange={handleInput}
-                     placeholder={isUserCreatingAcc ? "Create new password":"Enter your password"}
-                     required
-                
-                     className="
-                     bg-neutral-300
-                     w-full
-                     p-2
-                     outline-[3px]
-                     outline-my-dark-blue
-                     focus:outline"
+                    type="password"
+                    name="password"
+                    value={inputs.password}
+                    onChange={handleInput}
+                    id="password"
+                    required
+                    autoComplete='true'
+                    placeholder={isUserCreatingAcc ? "Create new password":"Enter your password"}
+                    className="
+                    bg-neutral-300
+                    p-2
+                    w-full
+                    outline-my-dark-blue
+                    outline-[3px]
+                    focus:outline"
                     />
                 
                 </div>

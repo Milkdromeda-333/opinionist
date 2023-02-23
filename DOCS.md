@@ -94,3 +94,11 @@ TOFIX:
 - z index of navbar components
 
 ---
+
+Plan:
+
+- set up proxy +/ CORS
+
+- catch token and save to localStorage
+
+- protect routes

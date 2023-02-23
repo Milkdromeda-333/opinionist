@@ -1,12 +1,22 @@
-import { useState } from "react";
-import Img from "../assets/undraw_like_dislike_re_dwcj.svg";
-import AuthForm from "../components/AuthForm"
-import Logo from "../components/Logo";
+import { useState } from 'react';
+import Img from '../assets/undraw_like_dislike_re_dwcj.svg';
+import AuthForm from '../components/AuthForm';
+import Logo from '../components/Logo';
+import Error from '../components/Error';
 
 export default function Auth() {
     
-    
     const [isUserCreatingAcc, setIsUserCreatingAcc] = useState(false);
+    
+    const [showErr, setShowErr] = useState(false);
+
+    const showErrComponent = (state) => {
+        // if i ever need to set it to false manually elsewhere, i can just pass in false instead of wait for the timer. Like an exit button
+        setShowErr(state);
+        setTimeout(() => {
+            setShowErr(!state);
+        }, 4000);
+    }
 
     return (
         <div className="bg-my-cream">
@@ -20,10 +30,13 @@ export default function Auth() {
 			border-b-2 border-my-cream-tone
 			shadow-lg
             px-4
+            relative
 			sm:justify-between sm:flex-row sm:border-none
             ">
                 <Logo />
             </nav>
+
+            {showErr && <Error message='Sorry. Something went wrong.' />}
 
             {/* page */}
             <div className="
@@ -49,7 +62,7 @@ export default function Auth() {
                     <img src={Img} alt="girl voting" className="w-min h-28 md:h-[300px]" />
                 </div>
 
-                <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} />
+                <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} showErrComponent={showErrComponent} />
             </div>
         </div>
     )

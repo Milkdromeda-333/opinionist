@@ -1,17 +1,17 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { createContext } from 'react';
+import { useState } from 'react';
 
 const context = createContext();
 
 function UserContextProvider(props) {
 
-    const [userState, setUserState] = useState({});
+    const [user, setUser] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
         <context.Provider value={{
-            userState,
-            setUserState,
+            user,
+            setUser,
             isLoggedIn,
             setIsLoggedIn
         }}>
