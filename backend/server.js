@@ -46,5 +46,4 @@ app.listen(PORT, (err) => {
         console.log("Connected to database");
     });
     console.log("Server is Successfully Running, and App is listening on port " + PORT);
-})
-
+});
