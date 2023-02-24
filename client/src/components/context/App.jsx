@@ -1,5 +1,5 @@
-import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { createContext, useEffect } from 'react';
+import { useState } from 'react';
 import { getPosts } from '../axiosHandlers';
 
 const appContext = createContext();

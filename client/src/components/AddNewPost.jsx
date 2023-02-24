@@ -36,7 +36,7 @@ export default function AddNewPost({closeModal, isNewPostOpen}) {
         z-[999]
         flex flex-col justify-center
         transition-all
-        ${isNewPostOpen ? "top-0" : "top-full"}`}
+        ${isNewPostOpen ? 'top-0' : 'top-full'}`}
         >
             <RxCross2 onClick={closeModal}
             className='
@@ -56,23 +56,23 @@ export default function AddNewPost({closeModal, isNewPostOpen}) {
             >
                 <h1 className='text-xl'>Create a new post:</h1>
 
-                <div className="
+                <div className='
                 flex flex-col items-center
                 w-11/12
-                md:w-1/2"
+                md:w-1/2'
                 >
 
-                    <label htmlFor="title"
+                    <label htmlFor='title'
                         className='
                         mr-auto
                         text-lg'
                     > Title:</label>
 
-                    <input type="title"
+                    <input type='title'
                     placeholder='Enter title here.'
                     onChange={handleTitleChange}
                     value={titleInput}
-                    name="title"
+                    name='title'
                     className='
                     w-full
                     rounded-md
@@ -84,13 +84,13 @@ export default function AddNewPost({closeModal, isNewPostOpen}) {
 
                 </div>
 
-                <div className="
+                <div className='
                 flex flex-col items-center 
                 w-11/12
-                md:w-1/2"
+                md:w-1/2'
                 >
 
-                    <label htmlFor="title"
+                    <label htmlFor='title'
                     className='
                     mr-auto
                     text-lg'
@@ -99,16 +99,16 @@ export default function AddNewPost({closeModal, isNewPostOpen}) {
                     <ResizableTextArea
                     textInput={textInput}
                     setTextInput={setTextInput}
-                    name="post"
-                    id="post"
-                    placeholder="Enter your post details here."
-                    height="200px"
+                    name='post'
+                    id='post'
+                    placeholder='Enter your post details here.'
+                    height='200px'
                     />
 
-                    <div className="
+                    <div className='
                     flex flex-row justify-end items-end gap-2
                     w-full
-                    ">
+                    '>
                         <button
                         onClick={ handleClear }
                         className='

@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect } from 'react';
 
 export default function ResizableTextArea({ textInput, setTextInput, name, id, placeholder, height }) {
     
@@ -20,26 +20,26 @@ export default function ResizableTextArea({ textInput, setTextInput, name, id, p
         }
         
     ref.current.style.height = height;
-    ref.current.style.overflow = "hidden";
+    ref.current.style.overflow = 'hidden';
     const next = `${ref.current.scrollHeight}px`;
     ref.current.style.height = next;
     autoHeight.current = next;
-    ref.current.style.overflow = "auto";
+    ref.current.style.overflow = 'auto';
     }, [textInput, ref, autoHeight]);
 
     return (
-        <textarea type="text"
+        <textarea type='text'
             name={name}
             id={id}
             placeholder={placeholder}
             ref={ref}
-            className="
+            className='
             w-full
             rounded-lg
             text-my-dark-blue
             p-2
             focus:outline focus:outline-[3px]
-            "
+            '
             value={textInput}
             onChange={event => setTextInput(event.target.value)} />
     )

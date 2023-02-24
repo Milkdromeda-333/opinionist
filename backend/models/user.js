@@ -23,9 +23,9 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
     const user = this;
-    if (!user.isModified("password")) return next();
+    if (!user.isModified('password')) return next();
     bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) return next(err);
         user.password = hash;
@@ -43,7 +43,7 @@ userSchema.methods.withoutPassword = function () {
 
 userSchema.methods.checkPassword = function (userAttempt, callback) {
     if (userAttempt !== this.password) {
-        return callback(new Error("Username or Passward are incorrect"));
+        return callback(new Error('Username or Passward are incorrect'));
     }
     return callback(null, true);
 };

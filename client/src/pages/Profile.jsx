@@ -3,7 +3,7 @@
 export default function Profile(){
 
     return (
-        <div className="">
+        <div className=''>
             <h1>Welciome to the profile page.</h1>
         </div>
     )

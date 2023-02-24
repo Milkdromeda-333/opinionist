@@ -20,7 +20,7 @@ app.use(express.json()); // parses requests for JSON
 
 // routing
 app.use('/auth', authRouter);
-app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ["HS256"] }));
+app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['HS256'] }));
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/user', usersRouter);
@@ -28,7 +28,7 @@ app.use('/api/user', usersRouter);
 // error handler
 app.use((err, req, res, next) => {
     console.log(err);
-    if (err.name === "UnauthorizedError") {
+    if (err.name === 'UnauthorizedError') {
         res.status(err.status);
     }
     return res.send({ errMsg: err.message });
@@ -39,12 +39,12 @@ app.listen(PORT, (err) => {
         throw new Error(err);
     }
     // connect to db
-    mongoose.set("strictQuery", false);
+    mongoose.set('strictQuery', false);
     mongoose.connect(process.env.MONGO_URI, (err) => {
         if (err) {
             throw err;
         }
-        console.log("Connected to database");
+        console.log('Connected to database');
     });
-    console.log("Server is Successfully Running, and App is listening on port " + PORT);
+    console.log('Server is Successfully Running, and App is listening on port ' + PORT);
 });
