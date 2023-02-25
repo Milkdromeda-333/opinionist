@@ -88,7 +88,9 @@ ReactDOM.render(<TextArea />, document.getElementById('app'))
 
 - I had an issue because I never saved the new user I was creating on signup in the server, so I went over a past project where I knew I completed my current task, and seen what I was missing... when  a new resouce is create mongo will add the __v field.
 
-- Was stumped by an issue for a week after trying many solutions given from github and stackoverflow. I used critical thinking skills to narrow down what may be the problem, which was my machine, and thought of a solution based on that theory. I did some research on that and was able to fix the error miraculously! I fixed my bcrypt issue by resseting my node config, and then running `npm rebuild bcrypt --build-from-source`
+- Was stumped by an issue for a week after trying many solutions given from github and stackoverflow. I used critical thinking skills to narrow down what may be the problem, which was my machine, and thought of a solution based on that theory. I did some research on that and was able to fix the error miraculously! I fixed my bcrypt issue by resseting my node config, and then running `npm rebuild bcrypt --build-from-source` UPADATE: I later ran inot the same issue, and did some asking on stackoverflow and came to the conclusion that this `npm install bcrypt --target_arch=x64` may help me to install the correct bit size package.
+
+- After fixing the bcrypt error I ran into an issue with no request being able to complete with my server. On my front-end it returned error 404, and on postman it just hung. Eventually I thought maybe it had something to do with something I added, and happened to take off my CORS middleware `app.use(require('cors'));`. That ended up being the culprit.. Yet it still does not work for my front-end.
 
 TOFIX:
 - z index of navbar components

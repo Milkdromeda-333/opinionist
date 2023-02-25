@@ -41,8 +41,9 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
                 console.log(err);
                 setInputs(inputDefault);
             });
+            return;
         }
-        showErrComponent(true);
+        showErrComponent(true, "Please provide credentials.");
         setInputs(inputDefault);
     }
 

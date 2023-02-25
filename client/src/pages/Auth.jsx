@@ -10,12 +10,16 @@ export default function Auth() {
     
     const [showErr, setShowErr] = useState(false);
 
-    const showErrComponent = (state) => {
+    const [errMessage, setErrMessage] = useState('');
+
+    const showErrComponent = (state, message) => {
         // if i ever need to set it to false manually elsewhere, i can just pass in false instead of wait for the timer. Like an exit button
+        // message is optional
+        setErrMessage(message);
         setShowErr(state);
         setTimeout(() => {
             setShowErr(!state);
-        }, 4000);
+        }, 5000);
     }
 
     return (
@@ -36,7 +40,7 @@ export default function Auth() {
                 <Logo />
             </nav>
 
-            {showErr && <Error message='Sorry. Something went wrong.' />}
+            {showErr && <Error message={errMessage} toggleErr={showErrComponent} />}
 
             {/* page */}
             <div className='
@@ -62,7 +66,7 @@ export default function Auth() {
                     <img src={Img} alt='girl voting' className='w-min h-28 md:h-[300px]' />
                 </div>
 
-                <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} showErrComponent={showErrComponent} />
+                <AuthForm isUserCreatingAcc={isUserCreatingAcc} setIsUserCreatingAcc={setIsUserCreatingAcc} showErrComponent={showErrComponent} setErrMessage={setErrMessage} />
             </div>
         </div>
     )

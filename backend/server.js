@@ -14,11 +14,18 @@ const authRouter = require('./routes/authRouter');
 
 // MIDDLEWARE
 
+// CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", `http://localhost:${PORT}/`); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use(morgan('dev'));
-app.use(require('cors'));
 app.use(express.json()); // parses requests for JSON
 
 // routing
+// app.use("/", () => console.log("ran"));
 app.use('/auth', authRouter);
 app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['HS256'] }));
 app.use('/api/posts', postsRouter);
