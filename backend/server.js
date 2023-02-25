@@ -25,7 +25,6 @@ app.use(morgan('dev'));
 app.use(express.json()); // parses requests for JSON
 
 // routing
-// app.use("/", () => console.log("ran"));
 app.use('/auth', authRouter);
 app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['HS256'] }));
 app.use('/api/posts', postsRouter);

@@ -5,13 +5,10 @@ const context = createContext();
 
 function UserContextProvider(props) {
 
-    const [user, setUser] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
         <context.Provider value={{
-            user,
-            setUser,
             isLoggedIn,
             setIsLoggedIn
         }}>

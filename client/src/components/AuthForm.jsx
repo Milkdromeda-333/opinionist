@@ -28,19 +28,20 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
         e.preventDefault();
 
         if (inputs.username && inputs.password) {
-            axios.post('/auth/signup', inputs)
+            axios.post('/auth/login', inputs)
             .then(token => {
                     localStorage.setItem('auth', token);
                     setInputs(inputDefault);
-                    navigate('/app');
-                    return
                 })
             .catch(err => {
                 e.preventDefault();
+                console.log(inputs)
                 showErrComponent(true);
                 console.log(err);
                 setInputs(inputDefault);
             });
+            
+            navigate('/app');
             return;
         }
         showErrComponent(true, "Please provide credentials.");

@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 
 export default function Error({ message = 'Sorry, something went wrong.', toggleErr }) {
-    // pass in function to close component
+    // DOCS: pass in function to close component
 
     const closeComp = () => {
         toggleErr(false);
@@ -18,7 +17,7 @@ export default function Error({ message = 'Sorry, something went wrong.', toggle
         transition-all
         flex flex-row justify-between items-center'
         >
-            {message}..
+            {message}
             <RxCross2 className='text-2xl hover:text-gray-200' onClick={closeComp} />
         </div>
     )

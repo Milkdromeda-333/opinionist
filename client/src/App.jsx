@@ -1,6 +1,5 @@
 import {useContext} from 'react';
 import { Routes, Route, Navigate  } from 'react-router-dom';
-import {context} from './components/context/User'
 // routes
 import Layout from './components/Layout'
 import Home from './pages/Home'
@@ -8,7 +7,9 @@ import Auth from './pages/Auth'
 import Profile from './pages/Profile'
 
 function App() {
-	const { user } = useContext(context);
+	// const { user } = useContext(context);
+	// console.log(localStorage.getItem('auth').toString());
+	const user = localStorage.getItem('auth').toString();
 	
 	return (
 		<div>
