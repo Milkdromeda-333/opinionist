@@ -34,7 +34,6 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
                 localStorage.setItem('auth', res.data.token);
                 setUser(res.data.user)
                 setToken(localStorage.getItem('auth'))
-                console.log(localStorage.getItem('auth'))
                 setInputs(inputDefault);
                 navigate('/home');
                 })
