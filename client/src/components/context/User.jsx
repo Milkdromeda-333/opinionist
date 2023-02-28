@@ -5,12 +5,21 @@ const context = createContext();
 
 function UserContextProvider(props) {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const userDefaults = {
+        username: '',
+        id: ''
+    }
+
+    const [user, setUser] = useState(userDefaults);
+
+    const [token, setToken] = useState(localStorage.getItem('auth'));
 
     return (
         <context.Provider value={{
-            isLoggedIn,
-            setIsLoggedIn
+            user,
+            setUser,
+            token,
+            setToken
         }}>
             {props.children}
         </context.Provider>

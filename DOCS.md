@@ -94,15 +94,19 @@ ReactDOM.render(<TextArea />, document.getElementById('app'))
 
 - Had an issue connecting my frontend to my backend. Got some help from a TA and they helped me realize that I was configuring my front-end to my backend as if it were CRA instead of Vite.
 
+- To fox mybcrypt errors, i use
+```
+npm uninstall bcrypt
+
+npm cache clean --force
+
+yarn add bcrypt --target_arch=x64
+```
+
+and it tends to work.
+
+
 TOFIX:
 - z index of navbar components
 
 ---
-
-Plan:
-
-x set up proxy +/ CORS
-
-x catch token and save to localStorage
-
-- protect routes

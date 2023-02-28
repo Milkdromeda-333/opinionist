@@ -1,27 +1,30 @@
-import {useContext} from 'react';
-import { Routes, Route, Navigate  } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 // routes
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import Profile from './pages/Profile'
+import { useContext } from 'react';
+import { context } from './components/context/User';
 
-function App() {
-	// const { user } = useContext(context);
-	// console.log(localStorage.getItem('auth').toString());
-	const user = localStorage.getItem('auth').toString();
+export default function App() {
+
+	const { token } = useContext(context);
 	
 	return (
-		<div>
+		<>
 			<Routes>
-				<Route path='/' element={<Auth/> }/>
+
+				<Route path='/' element={token ? <Navigate to='/home' /> : <Auth />} />
+				
 				<Route element={<Layout />}>
-					<Route path='/app' element={user ? <Home /> : <Navigate to='/' />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route path='/home' element={token ? <Home /> : <Navigate to='/' />} />
+					<Route path='/profile' element={token ? <Profile /> : <Navigate to='/' />} />
 				</Route>
+
 			</Routes>
-		</div>
+		</>
 	);
 }
 
-export default App;
+

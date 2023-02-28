@@ -1,15 +1,15 @@
-import Logo from './Logo'
+import Logo from './Logo';
 import { context } from './context/User';
 import {appContext} from './context/App'
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 
 export default function Navbar() {
 
 	const navigate = useNavigate();
-	const { setUserState } = useContext(context);
+	const { setUser, setToken } = useContext(context);
 	const { setIsNewPostOpen } = useContext(appContext);
 
 	const [isNavOpen, setIsNavOpen] = useState(false);
@@ -19,8 +19,13 @@ export default function Navbar() {
 	}
 
 	const handleLogout = () => {
-		setUserState({})
-		navigate('/')
+		setUser({
+			username: '',
+			id: ''
+		})
+		localStorage.removeItem('auth');
+		setToken("");
+		return navigate('/')
 	}
 
 	const toggleNewPostModal = () => {

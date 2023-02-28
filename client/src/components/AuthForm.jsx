@@ -12,7 +12,7 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
 
     const [inputs, setInputs] = useState(inputDefault);
 
-    const { user } = useContext(context);
+    const { user, setUser, setToken } = useContext(context);
     
     const navigate = useNavigate();
 
@@ -28,10 +28,15 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
         e.preventDefault();
 
         if (inputs.username && inputs.password) {
+
             axios.post('/auth/login', inputs)
-            .then(token => {
-                    localStorage.setItem('auth', token);
-                    setInputs(inputDefault);
+            .then(res => {
+                localStorage.setItem('auth', res.data.token);
+                setUser(res.data.user)
+                setToken(localStorage.getItem('auth'))
+                console.log(localStorage.getItem('auth'))
+                setInputs(inputDefault);
+                navigate('/home');
                 })
             .catch(err => {
                 e.preventDefault();
@@ -40,12 +45,11 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
                 console.log(err);
                 setInputs(inputDefault);
             });
-            
-            navigate('/app');
-            return;
-        }
+
+        } else {
         showErrComponent(true, "Please provide credentials.");
         setInputs(inputDefault);
+        }
     }
 
     const handleCreateNewUser = (e) => {

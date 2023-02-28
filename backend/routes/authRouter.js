@@ -63,7 +63,7 @@ authRouter.post('/login', (req, res, next) => {
 
             const token = createToken(user.withoutPassword());
             res.status(200);
-            return res.send(token);
+            return res.send({ token, user });
         });
 
     });

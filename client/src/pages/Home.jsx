@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
 import { appContext } from '../components/context/App'
+
+import Layout from '../components/Layout'
 import AddNewPost from '../components/AddNewPost';
 
 import Post from '../components/Post';
@@ -14,6 +16,7 @@ export default function Home() {
     }
     
     return (
+        // <Layout >
         <main className='
         w-full 
         grid grid-cols-1
@@ -32,6 +35,7 @@ export default function Home() {
 
             <AddNewPost closeModal={toggleModal} isNewPostOpen={isNewPostOpen}  />
 
-        </main>
+            </main>
+            // </Layout>
     )
 }
