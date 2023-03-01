@@ -62,7 +62,7 @@ export default function Post(data) {
             {/* post contents */}
             <div className=''>
                 <h2 className='font-bold text-lg my-2'>{title}</h2>
-                <p>{ description }</p>
+                <p className='break-words'>{ description }</p>
             </div>
 
             {/* options */}
@@ -120,7 +120,8 @@ export default function Post(data) {
                 cursor-pointer
                 flex flex-row justify-center items-center gap-2
                 hover:text-my-tan'
-                onClick={toggleCommentSec}>
+                onClick={toggleCommentSec}
+                >
                     <VscCommentDiscussion className='text-3xl' />
                     {/*!TODO add number of comments */}
                      <span className=''>view comments</span>

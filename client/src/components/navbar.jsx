@@ -85,9 +85,15 @@ export default function Navbar() {
 				>
 					New Post
 				</button>
+
+				<Link to='/home' className='hover:text-my-cream-tone'>
+					Home
+				</Link>
+
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
 				</Link>
+				
 				<button onClick={handleLogout} className='no-underline list-none hover:text-my-cream-tone'>
 					Logout
 				</button>
