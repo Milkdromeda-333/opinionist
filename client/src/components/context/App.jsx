@@ -1,6 +1,6 @@
-import { createContext, useEffect } from "react";
-import { useState } from "react";
-import { getPosts } from '../axios';
+import { createContext, useEffect } from 'react';
+import { useState } from 'react';
+import data from '../../../data.json';
 
 const appContext = createContext();
 
@@ -10,7 +10,8 @@ function App(props) {
     const [isNewPostOpen, setIsNewPostOpen] = useState(false);
 
     useEffect(() => {
-        const postsArr = getPosts()
+        // dummy data
+        const postsArr = data
         setPosts(postsArr)
     }, [])
     

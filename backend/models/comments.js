@@ -5,11 +5,11 @@ const commentSchema = mongoose.Schema({
         type: String,
         maxLength: 1500
     },
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    postId: {
+    post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     },
@@ -19,7 +19,7 @@ const commentSchema = mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 });
 

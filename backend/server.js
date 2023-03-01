@@ -1,41 +1,56 @@
-const express = require('express')
-require('dotenv').config()
-const app = express()
-const PORT = 8080
-const connectDB = require('./db/connectDB');
-const morgan = require('morgan')
+const express = require('express');
+require('dotenv').config();
+const app = express();
+const PORT = 8080;
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const { expressjwt } = require('express-jwt');
 
 //  ROUTES
 const postsRouter = require('./routes/postsRouter');
 const commentsRouter = require('./routes/commentsRouter');
-const userRouter = require('./routes/userRouter')
+const usersRouter = require('./routes/usersRouter');
+const authRouter = require('./routes/authRouter');
 
 // MIDDLEWARE
 
-app.use(morgan('dev'))
-app.use(express.json()) // parses requests for JSON
+// CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", `http://localhost:${PORT}/`);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use(morgan('dev'));
+app.use(express.json()); // parses requests for JSON
+
 // routing
-app.use('/posts', postsRouter);
-app.use('/comments', commentsRouter);
-app.use('/user', userRouter);
+app.use('/auth', authRouter);
+app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['HS256'] }));
+app.use('/api/posts', postsRouter);
+app.use('/api/comments', commentsRouter);
+app.use('/api/user', usersRouter);
 
-// START SERVER
+// error handler
+app.use((err, req, res, next) => {
+    console.log(err);
+    if (err.name === 'UnauthorizedError') {
+        res.status(err.status);
+    }
+    return res.send({ errMsg: err.message });
+});
 
-// attempts to connect to db and then to port, if theres any error it will be logged
-function start() {
-    try {
-        connectDB(process.env.MONGO_URI)
-        app.listen(PORT, (error) => {
-        if(!error)
-            console.log("Server is Successfully Running, and App is listening on port "+ PORT)
-        else 
-            console.log("Error occurred, server can't start: ", error);
+app.listen(PORT, (err) => {
+    if (err) {
+        throw new Error(err);
+    }
+    // connect to db
+    mongoose.set('strictQuery', false);
+    mongoose.connect(process.env.MONGO_URI, (err) => {
+        if (err) {
+            throw err;
         }
-        )
-    }
-    catch (err) {
-        console.log(err)
-    }
-}
-start()
-
+        console.log('Connected to database');
+    });
+    console.log('Server is Successfully Running, and App is listening on port ' + PORT);
+});

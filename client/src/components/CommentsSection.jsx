@@ -1,5 +1,5 @@
-import Comment from "./Comment"
-import {AiOutlineCloseSquare} from "react-icons/ai"
+import Comment from './Comment'
+import {AiOutlineCloseSquare} from 'react-icons/ai'
 
 export default function CommentsSection(props) {
     
@@ -11,20 +11,20 @@ export default function CommentsSection(props) {
     }
     return (
         <div
-        className="
+        className='
         border-t-2
         mt-4
-       ">
+       '>
             {commentsArr}
             <div 
             onClick={handleToggle}
-            className="
+            className='
              cursor-pointer
             flex flex-row justify-end items-center p-2 gap-[1px]
-            hover:text-my-tan"
+            hover:text-my-tan'
             >
                 <div>
-                    <AiOutlineCloseSquare  className="inline text-lg" />
+                    <AiOutlineCloseSquare  className='inline text-lg' />
                 </div>
                 <span>close comments</span>
             </div>

@@ -1,15 +1,15 @@
-import Logo from "./Logo"
-import { context } from "./context/User";
-import {appContext} from "./context/App"
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom";
-import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx'
+import Logo from './Logo';
+import { context } from './context/User';
+import {appContext} from './context/App'
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { RxHamburgerMenu, RxCross2 } from 'react-icons/rx';
 
 export default function Navbar() {
 
 	const navigate = useNavigate();
-	const { setUserState } = useContext(context);
+	const { setUser, setToken } = useContext(context);
 	const { setIsNewPostOpen } = useContext(appContext);
 
 	const [isNavOpen, setIsNavOpen] = useState(false);
@@ -19,8 +19,13 @@ export default function Navbar() {
 	}
 
 	const handleLogout = () => {
-		setUserState({})
-		navigate("/")
+		setUser({
+			username: '',
+			id: ''
+		})
+		localStorage.removeItem('auth');
+		setToken("");
+		return navigate('/')
 	}
 
 	const toggleNewPostModal = () => {
@@ -46,18 +51,18 @@ export default function Navbar() {
 			{/* HAMBURGER ICON*/}
 			{isNavOpen ?
 				<RxCross2 onClick={toggleHamburger}
-				className="
+				className='
 				absolute right-0
 				text-4xl
 				m-4
 				max-xtra-sm:text-2xl
-				sm:hidden"/>
-				: <RxHamburgerMenu onClick={ toggleHamburger } className="
+				sm:hidden'/>
+				: <RxHamburgerMenu onClick={ toggleHamburger } className='
 				absolute right-0
 				text-4xl
 				m-4
 				max-xtra-sm:text-2xl
-				sm:hidden"/>
+				sm:hidden'/>
 			}
 
 			{/* NAV MENU */}
@@ -80,9 +85,15 @@ export default function Navbar() {
 				>
 					New Post
 				</button>
+
+				<Link to='/home' className='hover:text-my-cream-tone'>
+					Home
+				</Link>
+
 				<Link to='/profile' className='hover:text-my-cream-tone'>
 					Profile
 				</Link>
+				
 				<button onClick={handleLogout} className='no-underline list-none hover:text-my-cream-tone'>
 					Logout
 				</button>

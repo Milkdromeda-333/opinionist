@@ -6,11 +6,11 @@ const voteSchema = {
         enum: ['upvote', 'downvote'],
         required: true
     },
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    postId: {
+    post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }

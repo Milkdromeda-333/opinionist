@@ -1,15 +1,18 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { context } from "./context/User";
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { context } from './context/User';
+import axios from 'axios';
 
-export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
-
-    const [inputs, setInputs] = useState({
+export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, showErrComponent }) {
+    
+    const inputDefault = {
         username: '',
         password: ''
-    })
+    }
 
-    const { userState, setUserState, setIsLoggedIn } = useContext(context);
+    const [inputs, setInputs] = useState(inputDefault);
+
+    const { user, setUser, setToken } = useContext(context);
     
     const navigate = useNavigate();
 
@@ -22,17 +25,41 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
     } 
 
     const handleSignIn = (e) => {
-        e.preventDefault()
-        setUserState(inputs)
-        setIsLoggedIn(true)
-        navigate("/app");
+        e.preventDefault();
+
+        if (inputs.username && inputs.password) {
+
+            axios.post('/auth/login', inputs)
+            .then(res => {
+                localStorage.setItem('auth', res.data.token);
+                setUser(res.data.user)
+                setToken(localStorage.getItem('auth'))
+                setInputs(inputDefault);
+                navigate('/home');
+                })
+            .catch(err => {
+                e.preventDefault();
+                console.log(inputs)
+                showErrComponent(true);
+                console.log(err);
+                setInputs(inputDefault);
+            });
+
+        } else {
+        showErrComponent(true, "Please provide credentials.");
+        setInputs(inputDefault);
+        }
     }
 
     const handleCreateNewUser = (e) => {
         e.preventDefault()
+        if (!user) {
+            setShowErr(true);
+            return;
+        }
         setUserState(inputs)
-        setIsLoggedIn(true)
-        navigate("/app");
+        createUser(inputs)
+        navigate('/app');
     }
 
     const toggleForm = () => {
@@ -40,65 +67,68 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
     }
 
     return (
-        <form className="
+        <form className='
             flex flex-col justify-center items-center gap-4
-            w-full"
+            w-full'
         >
-            <div className="
+            <div className='
             w-11/12
-            md:w-1/2">
+            md:w-1/2'>
 
                 {/* username sec */}
-                <div className="
+                <div className='
                 flex flex-col justify-center items-start gap-4
                 w-full
-                mb-4">
-                    <label htmlFor="username">Username:</label>
+                mb-4'>
+                    <label htmlFor='username'>Username:</label>
+
                     <input
-                    type="text"
-                     name="username"
-                     id="username"
+                    type='text'
+                    name='username'
+                    value={inputs.username}
+                     id='username'
                      onChange={handleInput}
-                     placeholder={isUserCreatingAcc ? "Create a username" : "Enter your username"}
+                     placeholder={isUserCreatingAcc ? 'Create a username' : 'Enter your username'}
                      required
-                
-                     className="
+                     className='
                      bg-neutral-300
                      w-full
                      p-2
                      outline-[3px]
                      outline-my-dark-blue
-                     focus:outline"
+                     focus:outline'
                     />
                 </div>
 
                 {/* password sec */}
-                <div className="
+                <div className='
                 flex flex-col justify-start items-start gap-4
-                w-full"
+                w-full'
                 >
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor='password'>Password:</label>
+
                     <input
-                    type="text"
-                     name="password"
-                     id="password"
-                     onChange={handleInput}
-                     placeholder={isUserCreatingAcc ? "Create new password":"Enter your password"}
-                     required
-                
-                     className="
-                     bg-neutral-300
-                     w-full
-                     p-2
-                     outline-[3px]
-                     outline-my-dark-blue
-                     focus:outline"
+                    type='password'
+                    name='password'
+                    value={inputs.password}
+                    onChange={handleInput}
+                    id='password'
+                    required
+                    autoComplete='true'
+                    placeholder={isUserCreatingAcc ? 'Create new password':'Enter your password'}
+                    className='
+                    bg-neutral-300
+                    p-2
+                    w-full
+                    outline-my-dark-blue
+                    outline-[3px]
+                    focus:outline'
                     />
                 
                 </div>
             </div>
 
-            <button onClick={ isUserCreatingAcc ? handleCreateNewUser : handleSignIn} className="
+            <button onClick={ isUserCreatingAcc ? handleCreateNewUser : handleSignIn} className='
             bg-my-dark-blue
             text-white
             w-1/2
@@ -106,14 +136,14 @@ export default function AuthForm({isUserCreatingAcc, setIsUserCreatingAcc}) {
             mt-2
             outline-my-light-blue
             outline-[3px]
-            hover:outline">
-                {isUserCreatingAcc ? "Sign up" : "Login"}
+            hover:outline'>
+                {isUserCreatingAcc ? 'Sign up' : 'Login'}
             </button>
 
-            <span className="cursor-pointer underline">Forgot you password?</span>
+            <span className='cursor-pointer underline'>Forgot you password?</span>
             <span onClick={toggleForm}
-                className="cursor-pointer underline">
-                {isUserCreatingAcc ? "Have an account already? Signup" : "Create a new account."}
+                className='cursor-pointer underline'>
+                {isUserCreatingAcc ? 'Have an account already? Signup' : 'Create a new account.'}
             </span>
         </form>
     )
