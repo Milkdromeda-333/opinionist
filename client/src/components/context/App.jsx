@@ -1,27 +1,25 @@
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
-import data from '../../../data.json';
+import axios from 'axios';
 
 const appContext = createContext();
 
 function App(props) {
 
-    const [posts, setPosts] = useState([])
+    const [allPosts, setAllPosts] = useState([])
     const [isNewPostOpen, setIsNewPostOpen] = useState(false);
-
-    useEffect(() => {
-        // dummy data
-        const postsArr = data
-        setPosts(postsArr)
-    }, [])
     
 return (
-    <appContext.Provider value={
-        {posts,
+    <appContext.Provider
+        value={{
+        allPosts,
+        setAllPosts,
         isNewPostOpen,
-        setIsNewPostOpen}}>
-            {props.children}
-        </appContext.Provider>
+        setIsNewPostOpen
+    }}
+    >
+        {props.children}
+    </appContext.Provider>
 );
 }
 

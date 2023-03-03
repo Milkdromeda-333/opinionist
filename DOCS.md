@@ -100,10 +100,13 @@ npm uninstall bcrypt
 
 npm cache clean --force
 
+yarn add bcrypt --target_arch=x64 or
 yarn add bcrypt --target_arch=x64
 ```
 
 and it tends to work.
+
+- update: im continuing to have this issue so i ma looking for an alternative.
 
 
 TOFIX:
@@ -113,3 +116,5 @@ TOFIX:
 
 - add posts: i think i just need to gather the form data, and send to backend with user id, and check that it is in the DB.
 - [] remove dummy data, if there are no posts say that, otherwise get all posts and display in order newest to oldest. 
+
+needs headers for axios
