@@ -1,15 +1,24 @@
-
 import Post from '../components/Post';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { appContext } from '../components/context/App';
+import {userAxios} from '../components/utils/axiosHandlers.js'
 
 export default function Home() {
     
-    const {posts} = useContext(appContext);
-    const postsArr = posts.map(data => <Post {...data} key={data.title} />)
+    const { allPosts, setAllPosts } = useContext(appContext);
     
+    const postsArr = allPosts.map(data => <Post {...data} key={data.title} />)
+    
+    
+    useEffect(() => {
+    userAxios.get('/api/posts')
+    .then(res => {
+        setAllPosts(res.data)
+    })
+    .catch(err => console.log(err));
+    }, [])
+
     return (
-        // <Layout >
         <main className='
         w-full 
         grid grid-cols-1
@@ -23,7 +32,7 @@ export default function Home() {
             <div className='
             flex flex-col justify-center items-center gap-6
             '>
-                {postsArr}
+                {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}
             </div>
 
 

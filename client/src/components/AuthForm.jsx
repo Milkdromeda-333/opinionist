@@ -31,15 +31,15 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
 
             axios.post('/auth/login', inputs)
             .then(res => {
-                localStorage.setItem('auth', res.data.token);
-                setUser(res.data.user)
-                setToken(localStorage.getItem('auth'))
-                setInputs(inputDefault);
-                navigate('/home');
-                })
+            localStorage.setItem('auth', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data.user))
+            setUser(res.data.user)
+            setToken(localStorage.getItem('auth'))
+            setInputs(inputDefault);
+            // this navigates straight to /home because it detects a token
+            })
             .catch(err => {
                 e.preventDefault();
-                console.log(inputs)
                 showErrComponent(true);
                 console.log(err);
                 setInputs(inputDefault);
@@ -53,13 +53,30 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
 
     const handleCreateNewUser = (e) => {
         e.preventDefault()
-        if (!user) {
-            setShowErr(true);
+
+        // if (!user) {
+        //     setShowErr(true);
+        //     return;
+        // }
+
+        if (!inputs.username || !inputs.password) {
+            showErrComponent(true, "Please provide input for both fields.");
             return;
         }
-        setUserState(inputs)
-        createUser(inputs)
-        navigate('/app');
+
+        axios.post('/auth/signup', inputs)
+            .then(res => {
+            localStorage.setItem('user', res.data.user);
+            localStorage.setItem('auth', res.data.token);
+                
+            setUser(res.data.user)
+            setToken(localStorage.getItem('auth'))
+            setInputs(inputDefault);
+            })
+            .catch(err => {
+                console.log(err);
+                showErrComponent(true, err.response.data.errMsg);
+        })
     }
 
     const toggleForm = () => {

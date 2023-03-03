@@ -4,7 +4,6 @@ const postSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        minLength: 5,
         maxLength: 50
     },
     datePosted: {
@@ -13,13 +12,22 @@ const postSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        minLength: 5,
+        required: true,
         maxLength: 1500
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    isHidden: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

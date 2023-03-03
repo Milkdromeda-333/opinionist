@@ -5,6 +5,7 @@ const PORT = 8080;
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const { expressjwt } = require('express-jwt');
+const cors = require('cors');
 
 //  ROUTES
 const postsRouter = require('./routes/postsRouter');
@@ -15,11 +16,7 @@ const authRouter = require('./routes/authRouter');
 // MIDDLEWARE
 
 // CORS
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", `http://localhost:${PORT}/`);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors());
 
 app.use(morgan('dev'));
 app.use(express.json()); // parses requests for JSON

@@ -1,21 +1,76 @@
-const express = require('express')
-
+const express = require('express');
 const router = express.Router();
-
-// controllers
-const {
-    getAllPosts,
-    getUsersPosts,
-    addNewPost
-} = require('../controllers/posts');
+const Post = require('../models/post.js');
 
 // all posts for homepage
-router.get('/', getAllPosts);
+router.get('/', (req, res, next) => {
+    Post.find({ isHidden: false }, (err, posts) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
 
-// all posts of given user (untested)
-router.get('/:userID/posts', getUsersPosts);
+        res.status(200);
+        return res.json(posts);
+    });
+
+});
+
+// all posts of given user
+router.get('/user/:userId', (req, res, next) => {
+
+    Post.find({ user: req.params.userId, isHidden: false }, (err, posts) => {
+
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(200);
+        return res.send(posts);
+
+    });
+
+});
 
 // adds new post
-router.post('/new', addNewPost)
+router.post('/new', (req, res, next) => {
 
-module.exports = router
+    const id = req.auth._id;
+
+    // this saves id to user for the new Post
+    req.body.user = id;
+
+    // creates new post insatnce and saves it after
+    const newPost = new Post(req.body);
+
+    newPost.save((err, post) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+        res.status(201);
+        return res.send(post);
+    });
+
+});
+
+// hides posts
+router.delete('/delete/:postId', (req, res, next) => {
+
+    console.log("params: " + req.params.postId);
+
+    Post.updateOne({ _id: req.params.postId }, { isHidden: true }, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.status(500);
+            return next(new Error("There was a server error."));
+        }
+
+        // console.log(response);
+        res.status(200);
+        return res.send(response);
+    });
+});
+
+module.exports = router;

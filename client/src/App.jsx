@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { context } from './components/context/User';
 import { appContext } from './components/context/App'
 // routes
@@ -15,8 +15,8 @@ export default function App() {
 	const { isNewPostOpen, setIsNewPostOpen } = useContext(appContext);
 
     const toggleModal = () => {
-        setIsNewPostOpen(false);
-    }
+		setIsNewPostOpen(false);
+	}
 	
 	return (
 		<>

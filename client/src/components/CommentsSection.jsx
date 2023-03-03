@@ -4,7 +4,7 @@ import {AiOutlineCloseSquare} from 'react-icons/ai'
 export default function CommentsSection(props) {
     
     const { comments, toggleComments } = props
-    const commentsArr = comments.map(data => <Comment {...data} />)
+    const commentsArr = comments?.map(data => <Comment {...data} />)
 
     const handleToggle = () => {
         toggleComments(false);
@@ -14,8 +14,9 @@ export default function CommentsSection(props) {
         className='
         border-t-2
         mt-4
+        text-center
        '>
-            {commentsArr}
+            {commentsArr || 'No comments yet.'}
             <div 
             onClick={handleToggle}
             className='

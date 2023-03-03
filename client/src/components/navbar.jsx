@@ -23,7 +23,7 @@ export default function Navbar() {
 			username: '',
 			id: ''
 		})
-		localStorage.removeItem('auth');
+		localStorage.clear();
 		setToken("");
 		return navigate('/')
 	}
@@ -40,7 +40,7 @@ export default function Navbar() {
 			bg-my-dark-blue
 			text-my-cream
 			fixed
-			flex flex-col justify-center items-center
+			flex flex-col justify-center items-center z-50
 			p-4
 			border-b-2 border-my-cream-tone
 			shadow-lg

@@ -100,13 +100,23 @@ npm uninstall bcrypt
 
 npm cache clean --force
 
+npm i bcrypt --target_arch=x64 or
 yarn add bcrypt --target_arch=x64
 ```
 
 and it tends to work.
 
+- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2
+
+- I was able to bypass cors by setting `app.use(cors())`
+
+- "axios.defaults.headers.post['Authorization'] = `Bearer ${localStorage.getItem('auth')}``" this would be shorter alternative to the axios interceptos i set in axiosHandlers in client folder
+
+- I forgot that I wasn't using cookies anymore and I was hung up on that. After that I ran into other problems but was able to overcome the step by step with trouble-shooting.
+
 
 TOFIX:
 - z index of navbar components
+- when error component is open in addNewPost, the close modal doesn't work.
 
 ---

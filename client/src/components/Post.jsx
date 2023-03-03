@@ -1,42 +1,43 @@
-import { useState} from 'react';
-import CommentsSection from './CommentsSection'
+import { useContext, useState} from 'react';
+
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
+import {HiOutlineDotsVertical} from 'react-icons/hi'
 import { VscCommentDiscussion } from 'react-icons/vsc'
-import ResizableTextArea from './ResizableTextarea';
 
-// TODO add a function that handles dates that shows how long ago the post was posted
+import ResizableTextArea from './ResizableTextarea';
+import PostMenu from './PostMenu';
+import CommentsSection from './CommentsSection'
+import {context} from './context/User'
  
 export default function Post(data) {
-    const { title, description, datePosted, userName } = data;
+    const { title, description, datePosted, username, _id: postId } = data;
+
+    const { user } = useContext(context);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
-
     const [textInput, setTextInput] = useState('');
+    const [toggleMenu, setToggleMenu] = useState(false);
 
     const handlePostComment = () => {
         setBtnEffect(true);
         setTextInput('');
     }
-    
-    const fakeCommentsArr = [
-        {
-            comment: 'ccdvdvrgtg',
-            username: 'jjrr',
-            isUpdated: false,
-            createdAt: '11/07'
-        },
-        {
-            comment: 'frnvuihbfguivurhuguirghbrhbv hfuiefgivb fedfgbhevb. nesdbvhfvbe. efefef .',
-            username: 'vfrr45',
-            isUpdated: true,
-            createdAt: '11/07'
-        }
-    ];
 
     const toggleCommentSec = () => {
         setIsCommentsActive(prev => !prev)
+    }
+
+    const date = () => {
+        const dateArr = datePosted.split('');
+        const splitIndex = dateArr.findIndex(elem => elem === 'T')
+        dateArr.splice(splitIndex);
+        return dateArr.join('').split('-').reverse().join('-')
+    }
+
+    const togglePostMenu = () => {
+        setToggleMenu(prev => !prev);
     }
 
     return (
@@ -47,16 +48,37 @@ export default function Post(data) {
         bg-my-light-blue
         rounded-md
         '>
-            {/* card header */}
-            <div className='flex flex-row justify-start gap-2'>
-                <img
-                    src='https://api.multiavatar.com/Starcrasher.png' alt='avater'
-                    className='w-10'
-                />
-                <div className='flex flex-col justify-start'>
-                    <span> @{userName}</span>
-                    <span className='text-xs'> {datePosted}</span>
+            <div className="flex flex-row justify-between">
+
+                {/* card header */}
+                <div className='flex flex-row justify-start gap-2'>
+                    <img
+                        src='https://api.multiavatar.com/Starcrasher.png' alt='avater'
+                        className='w-10'
+                    />
+                    <div className='flex flex-col justify-start'>
+                        <span> @{username}</span>
+                        <span className='text-xs'> {date()}</span>
+                    </div>
                 </div>
+
+                {username === user.username &&
+                    <div className="relative z-0">
+
+                        <HiOutlineDotsVertical
+                            className='
+                            text-2xl
+                            rounded-full
+                            hover:text-my-tan
+                            hover:outline'
+                            onClick={togglePostMenu}
+                        />
+
+                        {toggleMenu && <PostMenu postId={postId} />}
+                        
+                    </div>
+                }
+
             </div>
 
             {/* post contents */}
@@ -128,7 +150,7 @@ export default function Post(data) {
                     </div>
             }
             {isCommentsActive &&
-                <CommentsSection comments={fakeCommentsArr} toggleComments={setIsCommentsActive} />}
+                <CommentsSection comments={undefined} toggleComments={setIsCommentsActive} />}
         </div>
     )
 }

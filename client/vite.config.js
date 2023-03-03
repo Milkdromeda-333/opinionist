@@ -6,16 +6,21 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/auth": {
-        target: "http://localhost:8080/",
+      '/auth': {
+        target: 'http://127.0.0.1:8080/',
         changeOrigin: true,
         secure: false,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/auth/, ""),
       },
-      "/api": {
-        target: "http://localhost:8080/",
+      '/api': {
+        target: 'http://127.0.0.1:8080/',
         changeOrigin: true,
         secure: false,
-      },
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      }
     },
-  },
+    port: 5173
+  }
 });

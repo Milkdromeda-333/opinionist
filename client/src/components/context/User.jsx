@@ -1,26 +1,28 @@
 import { createContext } from 'react';
 import { useState } from 'react';
+import { userAxios } from '../utils/axiosHandlers';
 
 const context = createContext();
 
 function UserContextProvider(props) {
 
-    const userDefaults = {
-        username: '',
-        id: ''
-    }
-
-    const [user, setUser] = useState(userDefaults);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
     const [token, setToken] = useState(localStorage.getItem('auth'));
 
+    const [userPosts, setUserPosts] = useState([]);
+
     return (
-        <context.Provider value={{
+        <context.Provider
+            value={{
             user,
             setUser,
             token,
-            setToken
-        }}>
+            setToken,
+            userPosts,
+            setUserPosts
+            }}
+        >
             {props.children}
         </context.Provider>
 );
