@@ -15,7 +15,7 @@ export default function App() {
 	const { isNewPostOpen, setIsNewPostOpen } = useContext(appContext);
 
     const toggleModal = () => {
-        setIsNewPostOpen(false);
+		setIsNewPostOpen(false);
     }
 	
 	return (

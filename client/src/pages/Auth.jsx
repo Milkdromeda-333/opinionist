@@ -45,7 +45,7 @@ export default function Auth() {
                 <Logo />
             </nav>
 
-            {showErr && <Error message={errMessage} toggleErr={showErrComponent} />}
+            {showErr && <Error message={errMessage} toggleErr={showErrComponent} top={100} />}
 
             {/* page */}
             <div className='

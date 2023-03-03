@@ -117,6 +117,8 @@ and it tends to work.
 
 TOFIX:
 - z index of navbar components
+- when error component is open in addNewPost, the close modal doesn't work
+- the current implementaion doesnt keep username and id after refresh just the jwt token
 
 ---
 
