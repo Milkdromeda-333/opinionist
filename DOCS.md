@@ -117,6 +117,6 @@ and it tends to work.
 
 TOFIX:
 - z index of navbar components
-- when error component is open in addNewPost, the close modal doesn't work
+- when error component is open in addNewPost, the close modal doesn't work.
 
 ---

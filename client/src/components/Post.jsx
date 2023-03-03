@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useContext, useState} from 'react';
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
@@ -8,9 +8,12 @@ import { VscCommentDiscussion } from 'react-icons/vsc'
 import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
+import {context} from './context/User'
  
 export default function Post(data) {
     const { title, description, datePosted, username, _id: postId } = data;
+
+    const { user } = useContext(context);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
@@ -59,18 +62,22 @@ export default function Post(data) {
                     </div>
                 </div>
 
-                <div className="relative">
-                    <HiOutlineDotsVertical
-                        className='
-                        text-2xl
-                        rounded-full
-                        hover:text-my-tan
-                        hover:outline'
-                        onClick={togglePostMenu}
-                    />
+                {username === user.username &&
+                    <div className="relative z-0">
 
-                    { toggleMenu && <PostMenu postId={postId} /> }
-                </div>
+                        <HiOutlineDotsVertical
+                            className='
+                            text-2xl
+                            rounded-full
+                            hover:text-my-tan
+                            hover:outline'
+                            onClick={togglePostMenu}
+                        />
+
+                        {toggleMenu && <PostMenu postId={postId} />}
+                        
+                    </div>
+                }
 
             </div>
 
