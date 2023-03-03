@@ -31,15 +31,14 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
 
             axios.post('/auth/login', inputs)
             .then(res => {
-                localStorage.setItem('auth', res.data.token);
-                setUser(res.data.user)
-                setToken(localStorage.getItem('auth'))
-                setInputs(inputDefault);
-                navigate('/home');
-                })
+            localStorage.setItem('auth', res.data.token);
+            setUser(res.data.user)
+            setToken(localStorage.getItem('auth'))
+            setInputs(inputDefault);
+            // this navigates straight to /home because it detects a token
+            })
             .catch(err => {
                 e.preventDefault();
-                console.log(inputs)
                 showErrComponent(true);
                 console.log(err);
                 setInputs(inputDefault);
@@ -59,7 +58,7 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
         }
         setUserState(inputs)
         createUser(inputs)
-        navigate('/app');
+        navigate('/home');
     }
 
     const toggleForm = () => {

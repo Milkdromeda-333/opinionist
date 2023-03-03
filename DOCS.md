@@ -106,7 +106,13 @@ yarn add bcrypt --target_arch=x64
 
 and it tends to work.
 
-- update: im continuing to have this issue so i ma looking for an alternative.
+- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2
+
+- I was able to bypass cors by setting `app.use(cors())`
+
+- "axios.defaults.headers.post['Authorization'] = `Bearer ${localStorage.getItem('auth')}``" this would be shorter alternative to the axios interceptos i set in axiosHandlers in client folder
+
+- I forgot that I wasn't using cookies anymore and I was hung up on that. After that I ran into other problems but was able to overcome the step by step with trouble-shooting.
 
 
 TOFIX:
@@ -114,7 +120,7 @@ TOFIX:
 
 ---
 
-- add posts: i think i just need to gather the form data, and send to backend with user id, and check that it is in the DB.
+- [x] add posts: i think i just need to gather the form data, and send to backend with user id, and check that it is in the DB.
 - [] remove dummy data, if there are no posts say that, otherwise get all posts and display in order newest to oldest. 
 
 needs headers for axios

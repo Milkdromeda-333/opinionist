@@ -3,12 +3,13 @@ import { RxCross2 } from 'react-icons/rx';
 import ResizableTextArea from './ResizableTextarea';
 import { context } from './context/User';
 import { appContext } from './context/App';
-// import Error from './src/components/Error';
+import { userAxios } from './utils/axiosHandlers';
+import Error from './src/components/Error';
 
 export default function AddNewPost({ closeModal, isNewPostOpen }) {
     
-    // const { setUserPosts } = useContext(context);
-    const { allPosts, updateFeed } = useContext(appContext);
+    const { user } = useContext(context);
+    const { setAllPosts } = useContext(appContext);
 
     const [textInput, setTextInput] = useState('');
     const [titleInput, setTitleInput] = useState('');
@@ -18,16 +19,22 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
         setTitleInput(value);
     }
 
-    // TODO! add serror component
+    // TODO! add error component
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post('/api/posts/new', {title: titleInput, description: textInput})
+        userAxios.post('/api/posts/new', {
+            title: titleInput,
+            description: textInput,
+            username: user.username
+        })
         .then(res => {
             setTextInput('');
             setTitleInput('');
             closeModal();
-            updateFeed();
+            userAxios.get('/api/posts')
+                .then(res => setAllPosts(res.data))
+                .catch(err => console.log(err))
 
     }).catch(err => {
         console.log(err)
