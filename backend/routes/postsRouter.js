@@ -5,7 +5,7 @@ const Post = require('../models/post.js');
 
 // all posts for homepage
 router.get('/', (req, res, next) => {
-    Post.find((err, posts) => {
+    Post.find({ isHidden: false }, (err, posts) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
@@ -23,7 +23,7 @@ router.get('/user', (req, res, next) => {
     const id = req.auth._id;
 
     // may be broken
-    Post.find({ id }, (err, posts) => {
+    Post.find({ id, isHidden: false }, (err, posts) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
@@ -56,6 +56,24 @@ router.post('/new', (req, res, next) => {
         return res.send(post);
     });
 
+});
+
+// hides posts
+router.delete('/delete/:postId', (req, res, next) => {
+
+    console.log("params: " + req.params.postId);
+
+    Post.updateOne({ _id: req.params.postId }, { isHidden: true }, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.status(500);
+            return next(new Error("There was a server error."));
+        }
+
+        // console.log(response);
+        res.status(200);
+        return res.send(response);
+    });
 });
 
 module.exports = router;

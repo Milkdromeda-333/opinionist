@@ -100,7 +100,7 @@ npm uninstall bcrypt
 
 npm cache clean --force
 
-yarn add bcrypt --target_arch=x64 or
+npm i bcrypt --target_arch=x64 or
 yarn add bcrypt --target_arch=x64
 ```
 
@@ -118,11 +118,5 @@ and it tends to work.
 TOFIX:
 - z index of navbar components
 - when error component is open in addNewPost, the close modal doesn't work
-- the current implementaion doesnt keep username and id after refresh just the jwt token
 
 ---
-
-- [x] add posts: i think i just need to gather the form data, and send to backend with user id, and check that it is in the DB.
-- [] remove dummy data, if there are no posts say that, otherwise get all posts and display in order newest to oldest. 
-
-needs headers for axios

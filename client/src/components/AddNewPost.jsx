@@ -32,7 +32,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
         userAxios.post('/api/posts/new', {
             title: titleInput,
             description: textInput,
-            username: user
+            username: user.username
         })
         .then(res => {
             setTextInput('');

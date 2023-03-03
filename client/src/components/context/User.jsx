@@ -6,7 +6,7 @@ const context = createContext();
 
 function UserContextProvider(props) {
 
-    const [user, setUser] = useState(localStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
     const [token, setToken] = useState(localStorage.getItem('auth'));
 
