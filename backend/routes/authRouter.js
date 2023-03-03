@@ -21,6 +21,7 @@ authRouter.post('/signup', (req, res, next) => {
         }
         if (user) {
             res.status(403);
+            res.send("That username already exists.");
             return next(new Error('That username already exists'));
         }
 
@@ -32,7 +33,7 @@ authRouter.post('/signup', (req, res, next) => {
             }
             const token = createToken(newUser.withoutPassword());
             res.status(201);
-            return res.send({ token: token, user: savedUser.username });
+            return res.send({ token: token, user: savedUser });
         });
     });
 });

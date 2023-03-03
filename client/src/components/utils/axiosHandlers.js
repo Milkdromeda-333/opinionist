@@ -11,22 +11,6 @@ userAxios.interceptors.request.use(config => {
     return config;
 });
 
-// function getAllPosts() {
-//     let posts = '';
-//     userAxios.get('/api/posts')
-//         .then(res => {
-//             posts = res.data;
-//             return posts;
-//         })
-//         .catch(err => console.log(err));
-//     return posts;
-// }
-
-function createUser(credintials, callback, setInputs) {
-
-}
-
 export {
-    createUser,
     userAxios
 };
