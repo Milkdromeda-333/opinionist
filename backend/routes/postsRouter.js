@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post.js');
 
-
 // all posts for homepage
 router.get('/', (req, res, next) => {
     Post.find({ isHidden: false }, (err, posts) => {
@@ -18,12 +17,10 @@ router.get('/', (req, res, next) => {
 });
 
 // all posts of given user
-router.get('/user', (req, res, next) => {
+router.get('/user/:userId', (req, res, next) => {
 
-    const id = req.auth._id;
+    Post.find({ user: req.params.userId, isHidden: false }, (err, posts) => {
 
-    // may be broken
-    Post.find({ id, isHidden: false }, (err, posts) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
