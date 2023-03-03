@@ -23,7 +23,7 @@ export default function Navbar() {
 			username: '',
 			id: ''
 		})
-		localStorage.removeItem('auth');
+		localStorage.clear();
 		setToken("");
 		return navigate('/')
 	}

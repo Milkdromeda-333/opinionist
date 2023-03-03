@@ -32,6 +32,7 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
             axios.post('/auth/login', inputs)
             .then(res => {
             localStorage.setItem('auth', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data.user))
             setUser(res.data.user)
             setToken(localStorage.getItem('auth'))
             setInputs(inputDefault);

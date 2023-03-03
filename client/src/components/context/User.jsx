@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { useState } from 'react';
+import { userAxios } from '../utils/axiosHandlers';
 
 const context = createContext();
 
@@ -10,7 +11,7 @@ function UserContextProvider(props) {
         id: ''
     }
 
-    const [user, setUser] = useState(userDefaults);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || userDefaults);
 
     const [token, setToken] = useState(localStorage.getItem('auth')|| '');
 

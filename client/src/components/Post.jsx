@@ -4,11 +4,9 @@ import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
 import { VscCommentDiscussion } from 'react-icons/vsc'
 import ResizableTextArea from './ResizableTextarea';
-
-// TODO add a function that handles dates that shows how long ago the post was posted
  
 export default function Post(data) {
-    const { title, description, datePosted, userName } = data;
+    const { title, description, datePosted, username } = data;
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
@@ -39,6 +37,15 @@ export default function Post(data) {
         setIsCommentsActive(prev => !prev)
     }
 
+    const date = () => {
+        const dateArr = datePosted.split('');
+        const splitIndex = dateArr.findIndex(elem => elem === 'T')
+        dateArr.splice(splitIndex);
+        return dateArr.join('').split('-').reverse().join('-')
+    }
+
+    date()
+
     return (
         <div className='
         w-full
@@ -54,8 +61,8 @@ export default function Post(data) {
                     className='w-10'
                 />
                 <div className='flex flex-col justify-start'>
-                    <span> @{userName}</span>
-                    <span className='text-xs'> {datePosted}</span>
+                    <span> @{username}</span>
+                    <span className='text-xs'> {date()}</span>
                 </div>
             </div>
 
