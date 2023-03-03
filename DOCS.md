@@ -114,6 +114,8 @@ and it tends to work.
 
 - I forgot that I wasn't using cookies anymore and I was hung up on that. After that I ran into other problems but was able to overcome the step by step with trouble-shooting.
 
+- I am using 'https://ui-avatars.com/'
+
 
 TOFIX:
 - z index of navbar components

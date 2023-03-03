@@ -52,21 +52,21 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
     }
 
     const handleCreateNewUser = (e) => {
-        e.preventDefault()
-
-        // if (!user) {
-        //     setShowErr(true);
-        //     return;
-        // }
+        e.preventDefault();
 
         if (!inputs.username || !inputs.password) {
             showErrComponent(true, "Please provide input for both fields.");
             return;
         }
 
+        if ((inputs.username || inputs.password).includes(" ")) {
+            showErrComponent(true, "No spaces allowed in username or password.");
+            return;
+        }
+
         axios.post('/auth/signup', inputs)
             .then(res => {
-            localStorage.setItem('user', res.data.user);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
             localStorage.setItem('auth', res.data.token);
                 
             setUser(res.data.user)

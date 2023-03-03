@@ -53,7 +53,7 @@ export default function Post(data) {
                 {/* card header */}
                 <div className='flex flex-row justify-start gap-2'>
                     <img
-                        src='https://api.multiavatar.com/Starcrasher.png' alt='avater'
+                        src={`https://ui-avatars.com/api/?name=${username}&rounded=true`} alt='avater'
                         className='w-10'
                     />
                     <div className='flex flex-col justify-start'>

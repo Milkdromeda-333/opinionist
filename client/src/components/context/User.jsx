@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 import { useState } from 'react';
-import { userAxios } from '../utils/axiosHandlers';
 
 const context = createContext();
 
