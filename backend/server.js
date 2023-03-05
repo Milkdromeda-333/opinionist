@@ -12,6 +12,7 @@ const postsRouter = require('./routes/postsRouter');
 const commentsRouter = require('./routes/commentsRouter');
 const usersRouter = require('./routes/usersRouter');
 const authRouter = require('./routes/authRouter');
+const votesRouter = require('./routes/votesRouter');
 
 // MIDDLEWARE
 
@@ -27,6 +28,7 @@ app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['H
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/user', usersRouter);
+app.use('/api/votes', votesRouter);
 
 // error handler
 app.use((err, req, res, next) => {

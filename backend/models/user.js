@@ -20,7 +20,21 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please provide a password.']
-    }
+    },
+    votes: [{
+        vote: {
+            type: String,
+            enum: ['agree', 'disagree']
+        },
+        post: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
+        },
+        voteId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vote'
+        }
+    }]
 });
 
 userSchema.pre('save', function (next) {

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const voteSchema = {
     vote: {
         type: String,
-        enum: ['upvote', 'downvote'],
+        enum: ['agree', 'disagree'],
         required: true
     },
     user: {
@@ -16,4 +16,4 @@ const voteSchema = {
     }
 };
 
-module.exports = mongoose.module('Vote', voteSchema);
+module.exports = mongoose.model('Vote', voteSchema);
