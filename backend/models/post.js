@@ -28,7 +28,19 @@ const postSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    dislikes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Post', postSchema);

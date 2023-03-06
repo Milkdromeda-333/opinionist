@@ -50,7 +50,7 @@ router.post('/new', (req, res, next) => {
             return next(new Error(err));
         }
         res.status(201);
-        return res.send(post);
+        return res.send({ post });
     });
 
 });
@@ -66,8 +66,6 @@ router.delete('/delete/:postId', (req, res, next) => {
             res.status(500);
             return next(new Error("There was a server error."));
         }
-
-        // console.log(response);
         res.status(200);
         return res.send(response);
     });
