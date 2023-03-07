@@ -1,4 +1,4 @@
-import { useContext, useState} from 'react';
+import { useContext, useEffect, useState} from 'react';
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
@@ -8,7 +8,10 @@ import { VscCommentDiscussion } from 'react-icons/vsc'
 import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
-import {context} from './context/User'
+import { userAxios } from './utils/axiosHandlers.js';
+import {formatDate} from './utils/formatDate.js';
+import { context } from './context/User'
+
  
 export default function Post(data) {
     const { title, description, datePosted, username, _id: postId } = data;
@@ -19,9 +22,27 @@ export default function Post(data) {
     const [isCommentsActive, setIsCommentsActive] = useState(false);
     const [textInput, setTextInput] = useState('');
     const [toggleMenu, setToggleMenu] = useState(false);
+    const [commentsArr, setCommentsArr] = useState([]);
 
     const handlePostComment = () => {
         setBtnEffect(true);
+
+        const commentObj = {
+            "comment": textInput,
+            "user": user,
+            "post": postId,
+            "username": user.username
+        }
+
+        userAxios.post('/api/comments/new-comment', commentObj)
+            .then(res => {
+                userAxios.get(`/api/comments/${postId}`)
+                    .then(res => {
+                        setCommentsArr(res.data);
+                    })
+                    .catch(err => console.log(err));
+            }).catch(err => console.log(err))
+        
         setTextInput('');
     }
 
@@ -29,16 +50,17 @@ export default function Post(data) {
         setIsCommentsActive(prev => !prev)
     }
 
-    const date = () => {
-        const dateArr = datePosted.split('');
-        const splitIndex = dateArr.findIndex(elem => elem === 'T')
-        dateArr.splice(splitIndex);
-        return dateArr.join('').split('-').reverse().join('-')
-    }
-
     const togglePostMenu = () => {
         setToggleMenu(prev => !prev);
     }
+
+    useEffect(() => {
+        userAxios.get(`/api/comments/${postId}`)
+            .then(res => {
+                setCommentsArr(res.data);
+            })
+            .catch(err => console.log(err));
+    }, [])
 
     return (
         <div className='
@@ -58,7 +80,7 @@ export default function Post(data) {
                     />
                     <div className='flex flex-col justify-start'>
                         <span> @{username}</span>
-                        <span className='text-xs'> {date()}</span>
+                        <span className='text-xs'> {formatDate(datePosted)}</span>
                     </div>
                 </div>
 
@@ -150,7 +172,7 @@ export default function Post(data) {
                     </div>
             }
             {isCommentsActive &&
-                <CommentsSection comments={undefined} toggleComments={setIsCommentsActive} />}
+                <CommentsSection comments={commentsArr} toggleComments={setIsCommentsActive} setCommentsArr={setCommentsArr} />}
         </div>
     )
 }

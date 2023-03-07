@@ -1,16 +1,47 @@
 const express = require('express');
 const router = express.Router();
+const Comment = require('../models/comments.js');
 
-// controllers
-const {
-    getAllComments,
-    getUserComments
-} = require('../controllers/comments');
+// get all comments of a post
+router.get('/:postId', (req, res, next) => {
+    Comment.find({ post: req.params.postId }, (err, comments) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
 
-// all comments of a post
-router.get('/:postID', getAllComments)
+        res.status(200);
+        return res.send(comments);
+    });
+});
 
-// get all user comments (untested)
-router.get('/:userID/comments', getUserComments)
+// create a new comment
+router.post('/new-comment', (req, res, next) => {
+
+    const comment = new Comment(req.body);
+    comment.save((err, response) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(201);
+        return res.send(response);
+    });
+
+});
+
+// deletes a certian comment
+router.delete('/delete/:postId', (req, res, next) => {
+    Comment.deleteOne({ _id: req.params.postId }, (err, response) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(200);
+        return res.send(response);
+    });
+});
 
 module.exports = router;

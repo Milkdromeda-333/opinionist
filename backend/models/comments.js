@@ -9,13 +9,13 @@ const commentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    username: {
+        type: String,
+        required: true
+    },
     post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
-    },
-    isUpdated: {
-        type: Boolean,
-        default: false
     },
     createdAt: {
         type: Date,
