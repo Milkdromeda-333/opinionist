@@ -116,6 +116,8 @@ and it tends to work.
 
 - I am using 'https://ui-avatars.com/'
 
+- Do not take so long to aks for help! You can save so much time that way, get to socialize with other devs, and you can learn something new.
+
 
 TOFIX:
 - z index of navbar components
