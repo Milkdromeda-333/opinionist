@@ -116,9 +116,14 @@ and it tends to work.
 
 - I am using 'https://ui-avatars.com/'
 
+- Do not take so long to aks for help! You can save so much time that way, get to socialize with other devs, and you can learn something new.
+
+- req.query filters through a resource and has a question mark in the url. req.params are just in the url like normal.
+
 
 TOFIX:
 - z index of navbar components
 - when error component is open in addNewPost, the close modal doesn't work.
+- formatDates is backwards with the month and day.
 
 ---
