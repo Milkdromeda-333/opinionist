@@ -11,12 +11,14 @@ import CommentsSection from './CommentsSection'
 import { userAxios } from './utils/axiosHandlers.js';
 import {formatDate} from './utils/formatDate.js';
 import { context } from './context/User'
+import { appContext } from './context/App';
 
  
 export default function Post(data) {
     const { title, description, datePosted, username, _id: postId } = data;
 
     const { user } = useContext(context);
+    const { setAllPosts } = useContext(appContext);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
@@ -26,6 +28,23 @@ export default function Post(data) {
 
     const handlePostComment = () => {
         setBtnEffect(true);
+
+        const commentObj = {
+            "comment": textInput,
+            "user": user,
+            "post": postId,
+            "username": user.username
+        }
+
+        userAxios.post('/api/comments/new-comment', commentObj)
+            .then(res => {
+                userAxios.get(`/api/comments/${postId}`)
+                    .then(res => {
+                        setCommentsArr(res.data);
+                    })
+                    .catch(err => console.log(err));
+            }).catch(err => console.log(err))
+        
         setTextInput('');
     }
 
