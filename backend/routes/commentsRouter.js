@@ -17,7 +17,6 @@ router.get('/:postId', (req, res, next) => {
 
 // create a new comment
 router.post('/new-comment', (req, res, next) => {
-    // req.body = postId, userId, comment body.
 
     const comment = new Comment(req.body);
     comment.save((err, response) => {
@@ -30,6 +29,19 @@ router.post('/new-comment', (req, res, next) => {
         return res.send(response);
     });
 
+});
+
+// deletes a certian comment
+router.delete('/delete/:postId', (req, res, next) => {
+    Comment.deleteOne({ _id: req.params.postId }, (err, response) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(200);
+        return res.send(response);
+    });
 });
 
 module.exports = router;

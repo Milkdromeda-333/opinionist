@@ -2,13 +2,26 @@ import { formatDate } from './utils/formatDate.js';
 import {context} from '../components/context/User'
 import { useContext, useEffect, useState } from 'react';
 import {TbTrashX} from 'react-icons/tb'
+import { userAxios } from './utils/axiosHandlers.js';
 
 export default function Comment(props) {
-    const { comment, username, createdAt, user:postUser } = props;
+    const { comment, username, createdAt, user: postUser, _id, setCommentsArr, post: postId } = props;
 
     const { user: currentUser } = useContext(context);
 
     const [isCurrentUserComment, setIsCurrentUserComment] = useState(false);
+
+    const deleteComment = () => {
+        userAxios.delete(`/api/comments/delete/${_id}`)
+            .then(res => {
+                userAxios.get(`/api/comments/${postId}`)
+                    .then(res => {
+                        setCommentsArr(res.data);
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+    }
 
 
     useEffect(() => {
@@ -27,7 +40,10 @@ export default function Comment(props) {
                 
             {isCurrentUserComment &&
                 <button>
-                    <TbTrashX className='text-lg hover:text-red-600' />
+                        <TbTrashX
+                            onClick={ deleteComment }
+                            className='text-lg hover:text-red-600'
+                        />
                 </button>
             }
             </div>

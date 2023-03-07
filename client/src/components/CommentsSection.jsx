@@ -3,8 +3,8 @@ import {AiOutlineCloseSquare} from 'react-icons/ai'
 
 export default function CommentsSection(props) {
     
-    const { comments, toggleComments } = props
-    const commentsArr = comments?.map(data => <Comment {...data} key={data._id} />)
+    const { comments, toggleComments, setCommentsArr} = props
+    const commentsArr = comments?.map(data => <Comment {...data} key={data._id} setCommentsArr={setCommentsArr} />)
 
     const handleToggle = () => {
         toggleComments(false);
