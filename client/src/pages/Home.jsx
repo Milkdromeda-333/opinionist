@@ -1,6 +1,7 @@
 import Post from '../components/Post';
 import { useContext, useEffect } from 'react';
 import { appContext } from '../components/context/App';
+import Filter from '../components/Filter';
 
 export default function Home() {
     
@@ -15,16 +16,15 @@ export default function Home() {
 
     return (
         <main className='
-        w-full 
-        grid grid-cols-1
         px-4
-        pt-16
-        md:grid-cols-3 md:pt-24'
+        pt-20'
         >
-
-            <h1 className='text-2xl m-4'>Feed:</h1>
+            <Filter />
 
             <div className='
+            w-full
+            mx-auto
+            md:w-1/3
             flex flex-col justify-center items-center gap-6
             '>
                 {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}

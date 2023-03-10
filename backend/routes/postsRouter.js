@@ -133,4 +133,57 @@ router.put('/vote/:postId/:vote', (req, res, next) => {
 
 });
 
+// sorts posts
+router.get('/sort/:sortType', (req, res, next) => {
+
+    switch (req.params.sortType) {
+        case 'newest-first':
+            Post.find({ isHidden: false }).sort({ datePosted: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'oldest-first':
+            Post.find({ isHidden: false }).sort({ datePosted: 1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'popular-first':
+            Post.find({ isHidden: false }).sort({ upvotes: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'most-contraversial':
+            Post.find({ isHidden: false }).sort({ downvotes: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+    }
+
+
+});
+
 module.exports = router;
