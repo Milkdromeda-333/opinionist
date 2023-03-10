@@ -24,28 +24,20 @@ export default function PostMenu({ postId }) {
 
     return (
         <div
-            className="
+            className='
             w-[100px]
             border-2
             absolute top-0 right-10 z-0
-            bg-gray-400
-            "
+            bg-gray-400'
         >
             <button
-                className="
-                border-b-2
+                className='
                 w-full
                 hover:bg-gray-500
-                active:bg-gray-600"
+                active:bg-gray-600'
 
                 onClick={deletePost}
-            > Delete </button>
-
-            <button 
-            className="w-full 
-            hover:bg-gray-500 
-            active:bg-gray-600"
-            > Update </button>
+            > delete post </button>
 
         </div>
     )
