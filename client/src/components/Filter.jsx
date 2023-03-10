@@ -15,8 +15,8 @@ export default function Filter() {
     
 
     const btnsDefaults = {
-        newestFirst: false,
-        oldestFirst: true,
+        newestFirst: true,
+        oldestFirst: false,
         mostControversial : false,
         mostPopular: false
     }
@@ -30,7 +30,7 @@ export default function Filter() {
             mb-4
             p-2
             text-my-cream
-            flex flex-row justify-center items-center gap-4'
+            flex flex-row justify-center items-center gap-4 flex-wrap'
         >
             <span className='text-my-dark-blue'>Sort by:</span>
             <NewestFirst cb={newestFirst} activeBtns={activeBtns} setActiveBtns={setActiveBtns} />

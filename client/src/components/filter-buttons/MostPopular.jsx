@@ -14,7 +14,7 @@ export default function MostPopular({cb,activeBtns, setActiveBtns}) {
              className={`
             border-2 rounded
             px-4 py-2
-            ${activeBtns.mostPopular ? ' hover:bg-my-dark-blue-tone': 'hover:bg-my-light-blue'}
+            ${activeBtns.mostPopular ? ' hover:bg-my-dark-blue-tone': 'hover:bg-my-light-blue-tone'}
             ${activeBtns.mostPopular  ? 'bg-my-dark-blue': 'bg-my-light-blue'}
             `}
             onClick={handleClick}

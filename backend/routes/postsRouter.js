@@ -4,7 +4,7 @@ const Post = require('../models/post.js');
 
 // all posts for homepage
 router.get('/', (req, res, next) => {
-    Post.find({ isHidden: false }, (err, posts) => {
+    Post.find({ isHidden: false }, null, { sort: { datePosted: "desc" } }, (err, posts) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
