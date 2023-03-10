@@ -9,20 +9,27 @@ import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
 import { userAxios } from './utils/axiosHandlers.js';
-import {formatDate} from './utils/formatDate.js';
+import { formatDate } from './utils/formatDate.js';
+
+import { appContext } from '../components/context/App';
 import { context } from './context/User'
 
  
 export default function Post(data) {
-    const { title, description, datePosted, username, _id: postId } = data;
+    const { title, description, datePosted, username, _id: postId, upvotes, downvotes } = data;
 
     const { user } = useContext(context);
+    const { updateFeed, allPosts } = useContext(appContext);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
     const [textInput, setTextInput] = useState('');
     const [toggleMenu, setToggleMenu] = useState(false);
     const [commentsArr, setCommentsArr] = useState([]);
+    const [isVoted, setIsVoted] = useState({
+        upvoted: upvotes.includes(user._id),
+        downvoted: downvotes.includes(user._id)
+    });
 
     const handlePostComment = () => {
         setBtnEffect(true);
@@ -52,6 +59,30 @@ export default function Post(data) {
 
     const togglePostMenu = () => {
         setToggleMenu(prev => !prev);
+    }
+
+    const handleDownvote = () => {
+        userAxios.put(`/api/posts/vote/${postId}/downvote`)
+            .then(() => {
+                setIsVoted(prev => ({
+                    upvoted: false,
+                    downvoted: !prev.downvoted
+                }));
+                updateFeed();
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleUpvote = () => {
+        userAxios.put(`/api/posts/vote/${postId}/upvote`)
+            .then(() => {
+                setIsVoted(prev => ({
+                    downvoted: false,
+                    upvoted: !prev.upvoted
+                }));
+                updateFeed()
+            })
+            .catch(err => console.log(err));
     }
 
     useEffect(() => {
@@ -115,18 +146,28 @@ export default function Post(data) {
             border-t-2
             mt-2
             py-2'>
-                <div className='
+                <div
+                onClick={handleDownvote}    
+                className={`
                 flex flex-row justify-center items-center gap-2
+                cursor-pointer
                 hover:text-red-500
-                cursor-pointer'>
+                ${isVoted.downvoted && 'text-red-600'}
+                `}>
+                    {downvotes.length}
                     <span>Disagree</span>
                     <FiThumbsDown />
                 </div>
-                <div className='
+                <div
+                onClick={handleUpvote}
+                className={`
                 flex flex-row justify-center items-center gap-2
                 hover:text-green-500
-                cursor-pointer'>
+                cursor-pointer
+                ${isVoted.upvoted && 'text-green-600'}
+                `}>
                     <FiThumbsUp />
+                    {upvotes.length}
                     <span>Agree</span>
                 </div>
             </div>
