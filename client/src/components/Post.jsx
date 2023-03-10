@@ -9,20 +9,27 @@ import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
 import { userAxios } from './utils/axiosHandlers.js';
-import {formatDate} from './utils/formatDate.js';
+import { formatDate } from './utils/formatDate.js';
+
+import { appContext } from '../components/context/App';
 import { context } from './context/User'
 
  
 export default function Post(data) {
-    const { title, description, datePosted, username, _id: postId } = data;
+    const { title, description, datePosted, username, _id: postId, upvotes, downvotes } = data;
 
     const { user } = useContext(context);
+    const { updateFeed, allPosts } = useContext(appContext);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
     const [textInput, setTextInput] = useState('');
     const [toggleMenu, setToggleMenu] = useState(false);
     const [commentsArr, setCommentsArr] = useState([]);
+    const [isVoted, setIsVoted] = useState({
+        upvoted: upvotes.includes(user._id),
+        downvoted: downvotes.includes(user._id)
+    });
 
     const handlePostComment = () => {
         setBtnEffect(true);
@@ -34,7 +41,8 @@ export default function Post(data) {
             "username": user.username
         }
 
-        userAxios.post('/api/comments/new-comment', commentObj)
+        if (textInput) {
+            userAxios.post('/api/comments/new-comment', commentObj)
             .then(res => {
                 userAxios.get(`/api/comments/${postId}`)
                     .then(res => {
@@ -44,14 +52,40 @@ export default function Post(data) {
             }).catch(err => console.log(err))
         
         setTextInput('');
+        }
+        
     }
 
     const toggleCommentSec = () => {
-        setIsCommentsActive(prev => !prev)
+        setIsCommentsActive(prev => !prev);
     }
 
     const togglePostMenu = () => {
         setToggleMenu(prev => !prev);
+    }
+
+    const handleDownvote = () => {
+        userAxios.put(`/api/posts/vote/${postId}/downvote`)
+            .then(() => {
+                setIsVoted(prev => ({
+                    upvoted: false,
+                    downvoted: !prev.downvoted
+                }));
+                updateFeed();
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleUpvote = () => {
+        userAxios.put(`/api/posts/vote/${postId}/upvote`)
+            .then(() => {
+                setIsVoted(prev => ({
+                    downvoted: false,
+                    upvoted: !prev.upvoted
+                }));
+                updateFeed()
+            })
+            .catch(err => console.log(err));
     }
 
     useEffect(() => {
@@ -61,6 +95,10 @@ export default function Post(data) {
             })
             .catch(err => console.log(err));
     }, [])
+
+    useEffect(() => {
+        updateFeed()
+    }, [isVoted])
 
     return (
         <div className='
@@ -104,32 +142,44 @@ export default function Post(data) {
             </div>
 
             {/* post contents */}
-            <div className=''>
+            <div className='mb-2'>
                 <h2 className='font-bold text-lg my-2'>{title}</h2>
                 <p className='break-words'>{ description }</p>
             </div>
 
             {/* options */}
-            <div className='
-            flex flex-row justify-evenly items-center gap-4
-            border-t-2
-            mt-2
-            py-2'>
+            {
+                username !== user.username &&
                 <div className='
-                flex flex-row justify-center items-center gap-2
-                hover:text-red-500
-                cursor-pointer'>
-                    <span>Disagree</span>
-                    <FiThumbsDown />
-                </div>
-                <div className='
-                flex flex-row justify-center items-center gap-2
-                hover:text-green-500
-                cursor-pointer'>
-                    <FiThumbsUp />
-                    <span>Agree</span>
-                </div>
+                    flex flex-row justify-evenly items-center gap-4
+                    border-t-2
+                    py-2'>
+                    <div
+                    onClick={handleDownvote}    
+                    className={`
+                    flex flex-row justify-center items-center gap-2
+                    cursor-pointer
+                    hover:text-red-500
+                    ${isVoted.downvoted && 'text-red-600'}
+                    `}>
+                        {downvotes.length}
+                        <span>Disagree</span>
+                        <FiThumbsDown />
+                    </div>
+                    <div
+                    onClick={handleUpvote}
+                    className={`
+                    flex flex-row justify-center items-center gap-2
+                    hover:text-green-500
+                    cursor-pointer
+                    ${isVoted.upvoted && 'text-green-600'}
+                    `}>
+                        <FiThumbsUp />
+                        {upvotes.length}
+                        <span>Agree</span>
+                    </div>
             </div>
+            }
 
             {/* comment input */}
             <div className='flex flex-row justify-evenly items-center gap-2'>
@@ -168,7 +218,7 @@ export default function Post(data) {
                 >
                     <VscCommentDiscussion className='text-3xl' />
                     {/*!TODO add number of comments */}
-                     <span className=''>view comments</span>
+                    <span className=''>view {commentsArr.length} comments</span>
                     </div>
             }
             {isCommentsActive &&
