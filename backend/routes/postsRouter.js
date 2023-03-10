@@ -95,6 +95,7 @@ router.put('/vote/:postId/:vote', (req, res, next) => {
             }
 
             foundPost.upvotes.push(userId);
+            foundPost.downvotes = foundPost.downvotes.filter(user => user === userId);
             foundPost.save();
 
             res.status(201);
@@ -122,6 +123,7 @@ router.put('/vote/:postId/:vote', (req, res, next) => {
         }
 
         foundPost.downvotes.push(userId);
+        foundPost.upvotes = foundPost.upvotes.filter(user => user === userId);
         foundPost.save();
 
         res.status(201);
