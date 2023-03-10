@@ -1,21 +1,16 @@
 import Post from '../components/Post';
 import { useContext, useEffect } from 'react';
 import { appContext } from '../components/context/App';
-import {userAxios} from '../components/utils/axiosHandlers.js'
 
 export default function Home() {
     
-    const { allPosts, setAllPosts } = useContext(appContext);
+    const { allPosts, updateFeed } = useContext(appContext);
     
     const postsArr = allPosts.map(data => <Post {...data} key={data.title} />)
     
     
     useEffect(() => {
-    userAxios.get('/api/posts')
-    .then(res => {
-        setAllPosts(res.data)
-    })
-    .catch(err => console.log(err));
+        updateFeed()
     }, [])
 
     return (

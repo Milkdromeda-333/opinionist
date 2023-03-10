@@ -54,7 +54,7 @@ export default function Post(data) {
     }
 
     const toggleCommentSec = () => {
-        setIsCommentsActive(prev => !prev)
+        setIsCommentsActive(prev => !prev);
     }
 
     const togglePostMenu = () => {
@@ -92,6 +92,10 @@ export default function Post(data) {
             })
             .catch(err => console.log(err));
     }, [])
+
+    useEffect(() => {
+        updateFeed()
+    }, [isVoted])
 
     return (
         <div className='
@@ -209,7 +213,7 @@ export default function Post(data) {
                 >
                     <VscCommentDiscussion className='text-3xl' />
                     {/*!TODO add number of comments */}
-                     <span className=''>view comments</span>
+                    <span className=''>view {commentsArr.length} comments</span>
                     </div>
             }
             {isCommentsActive &&

@@ -125,6 +125,6 @@ TOFIX:
 - z index of navbar components
 - when error component is open in addNewPost, the close modal doesn't work.
 - formatDates is backwards with the month and day.
-- voting is woncky. SOmetimes it works perfectly, other times the updates dont happen until the next call of updateFeed().
+- voting is woncky. SOmetimes it works perfectly, other times the updates dont happen until the next call of updateFeed(). Possibly fixed with a useEffect.
 
 ---

@@ -12,9 +12,9 @@ function App(props) {
     const updateFeed = () => {
         userAxios.get('/api/posts')
             .then(response => {
-            setAllPosts(response.data);
-        })
-        .catch(err => console.log(err))
+                setAllPosts(response.data);
+            })
+            .catch(err => console.log(err))
     }
     
 return (
