@@ -30,7 +30,9 @@ export default function Filter() {
             mb-4
             p-2
             text-my-cream
-            flex flex-row justify-center items-center gap-4 flex-wrap'
+            hidden
+            flex-row justify-center items-center gap-4 flex-wrap
+            md:flex'
         >
             <span className='text-my-dark-blue'>Sort by:</span>
             <NewestFirst cb={newestFirst} activeBtns={activeBtns} setActiveBtns={setActiveBtns} />
