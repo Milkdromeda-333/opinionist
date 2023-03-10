@@ -10,8 +10,10 @@ router.get('/', (req, res, next) => {
             return next(new Error(err));
         }
 
+        console.log(posts);
+
         res.status(200);
-        return res.json(posts);
+        return res.send(posts);
     });
 
 });
@@ -66,11 +68,69 @@ router.delete('/delete/:postId', (req, res, next) => {
             res.status(500);
             return next(new Error("There was a server error."));
         }
-
-        // console.log(response);
         res.status(200);
         return res.send(response);
     });
+});
+
+// votes on posts
+router.put('/vote/:postId/:vote', (req, res, next) => {
+
+    const userId = req.auth._id;
+
+    if (req.params.vote === 'upvote') {
+
+        Post.findOne({ _id: req.params.postId }, (err, foundPost) => {
+            if (err) {
+                res.status(500);
+                return next(err);
+            }
+
+            if (foundPost.upvotes.includes(userId)) {
+
+                foundPost.upvotes = foundPost.upvotes.filter(user => user === userId);
+                foundPost.save();
+
+                res.status(201);
+                return res.send("success");
+
+            }
+
+            foundPost.upvotes.push(userId);
+            foundPost.save();
+
+            res.status(201);
+            return res.send("success");
+
+        });
+
+        return;
+    }
+
+    Post.findOne({ _id: req.params.postId }, (err, foundPost) => {
+        if (err) {
+            res.status(500);
+            return next(err);
+        }
+
+        if (foundPost.downvotes.includes(userId)) {
+
+            foundPost.downvotes = foundPost.downvotes.filter(user => user === userId);
+            foundPost.save();
+
+            res.status(201);
+            return res.send("success");
+
+        }
+
+        foundPost.downvotes.push(userId);
+        foundPost.save();
+
+        res.status(201);
+        return res.send("success");
+
+    });
+
 });
 
 module.exports = router;

@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     votes: [{
         vote: {
             type: String,
-            enum: ['agree', 'disagree']
+            enum: ['upvote', 'downvote']
         },
         post: {
             type: mongoose.Schema.Types.ObjectId,
