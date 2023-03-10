@@ -1,30 +1,48 @@
 import Post from '../components/Post';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { appContext } from '../components/context/App';
+import Filter from '../components/Filter';
+import FilterMobile from '../components/FilterMobile';
+import { BiUpArrow, BiDownArrow } from 'react-icons/bi';
 
 export default function Home() {
     
     const { allPosts, updateFeed } = useContext(appContext);
     
     const postsArr = allPosts.map(data => <Post {...data} key={data.title} />)
+
+    const [isMobileFilterActive, setIsMobileFilterActive] = useState(false);
+
+    const toggleFilterMobile = () => {
+        setIsMobileFilterActive(prev => !prev);
+    }
     
     
     useEffect(() => {
-        updateFeed()
+        updateFeed();
     }, [])
 
     return (
         <main className='
-        w-full 
-        grid grid-cols-1
         px-4
-        pt-16
-        md:grid-cols-3 md:pt-24'
+        pt-20'
         >
+            
+            <div className='w-full flex flex-col justify-center items-center my-4 relative md:hidden'>
+                <div className="text-my-dark-blue rounded-full bg-white p-4 flex flex-row justify-between items-center w-full"  onClick={toggleFilterMobile}>
+                    <span>
+                        Sort by :</span>
+                    {isMobileFilterActive ? <BiUpArrow/>:<BiDownArrow />}
+                </div>
+                {isMobileFilterActive && <FilterMobile toggleFilterMobile={toggleFilterMobile} />}
+            </div>
 
-            <h1 className='text-2xl m-4'>Feed:</h1>
+            <Filter />
 
             <div className='
+            w-full
+            mx-auto
+            md:w-1/3
             flex flex-col justify-center items-center gap-6
             '>
                 {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}

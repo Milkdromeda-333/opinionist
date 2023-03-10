@@ -16,7 +16,40 @@ function App(props) {
             })
             .catch(err => console.log(err))
     }
-    
+
+    // posts filter.
+
+    const newestFirst = () => {
+        userAxios.get('/api/posts/sort/newest-first')
+            .then(res => {
+                setAllPosts(res.data)      
+            })
+            .catch(err => console.log(err));
+    }
+
+    const oldestFirst = () => {
+        userAxios.get('/api/posts/sort/oldest-first')
+            .then(res => {
+                setAllPosts(res.data)      
+            })
+            .catch(err => console.log(err));
+    }
+
+    const popularFirst = () => {
+         userAxios.get('/api/posts/sort/popular-first')
+            .then(res => {
+                setAllPosts(res.data)      
+            })
+            .catch(err => console.log(err));
+    }
+
+    const mostControversial  = () => {
+         userAxios.get('/api/posts/sort/most-controversial ')
+            .then(res => {
+                setAllPosts(res.data)      
+            })
+            .catch(err => console.log(err));
+    }
 return (
     <appContext.Provider
         value={{
@@ -24,7 +57,11 @@ return (
         setAllPosts,
         isNewPostOpen,
         setIsNewPostOpen,
-        updateFeed
+        updateFeed,
+        newestFirst,
+        oldestFirst,
+        popularFirst,
+        mostControversial 
     }}
     >
         {props.children}

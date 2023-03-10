@@ -4,7 +4,7 @@ const Post = require('../models/post.js');
 
 // all posts for homepage
 router.get('/', (req, res, next) => {
-    Post.find({ isHidden: false }, (err, posts) => {
+    Post.find({ isHidden: false }, null, { sort: { datePosted: "desc" } }, (err, posts) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
@@ -130,6 +130,59 @@ router.put('/vote/:postId/:vote', (req, res, next) => {
         return res.send("success");
 
     });
+
+});
+
+// sorts posts
+router.get('/sort/:sortType', (req, res, next) => {
+
+    switch (req.params.sortType) {
+        case 'newest-first':
+            Post.find({ isHidden: false }).sort({ datePosted: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'oldest-first':
+            Post.find({ isHidden: false }).sort({ datePosted: 1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'popular-first':
+            Post.find({ isHidden: false }).sort({ upvotes: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.json(posts);
+            });
+            break;
+        case 'most-controversial':
+            Post.find({ isHidden: false }).sort({ downvotes: -1 }).exec((err, posts) => {
+                if (err) {
+                    res.status(500);
+                    return next(err);
+                }
+
+                res.status(200);
+                return res.send(posts);
+            });
+            console.log("ran");
+    }
+
 
 });
 

@@ -21,6 +21,8 @@ module.exports = {
       },
       colors: {
         'my-dark-blue': 'hsl(240, 27%, 18%)',
+        'my-dark-blue-tone': 'hsl(240, 27%, 12%)',
+        'my-light-blue-tone': 'hsl(232, 17%, 30%)',
         'my-light-blue': 'hsl(232, 17%, 35%)',
         'my-purple': 'hsl(309, 6%, 58%)',
         'my-tan': 'hsl(11, 24%, 72%)',
