@@ -128,6 +128,3 @@ TOFIX:
 - voting is woncky. SOmetimes it works perfectly, other times the updates dont happen until the next call of updateFeed(). Possibly fixed with a useEffect. I had to take it out o now its broken again.
 
 ---
-
-NOTE 2 DEV:
-I will be currently abandoning this feature until further notice.

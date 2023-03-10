@@ -1,12 +1,8 @@
-
+import Post from '../components/Post';
 import { useContext, useEffect, useState } from 'react';
 import { appContext } from '../components/context/App';
-
 import Filter from '../components/Filter';
 import FilterMobile from '../components/FilterMobile';
-import Post from '../components/Post';
-import ProfilePreview from '../components/ProfilePreview';
-
 import { BiUpArrow, BiDownArrow } from 'react-icons/bi';
 
 export default function Home() {
@@ -41,22 +37,17 @@ export default function Home() {
                 {isMobileFilterActive && <FilterMobile toggleFilterMobile={toggleFilterMobile} />}
             </div>
 
+            <Filter />
 
-            <div className="w-full grid grid-cols-[2fr_1fr] gap-20">
-                <div className={`
-                w-full
-                mx-auto
-                flex flex-col justify-center items-center gap-6
-                relative
-                `}>
-                    <Filter />
-                    
-                    {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}
-                
-                
-                </div>
-                <ProfilePreview />
+            <div className='
+            w-full
+            mx-auto
+            md:w-1/3
+            flex flex-col justify-center items-center gap-6
+            '>
+                {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}
             </div>
+
 
             </main>
     )

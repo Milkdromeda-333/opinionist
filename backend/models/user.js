@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a password.']
     },
-    title: String,
     votes: [{
         vote: {
             type: String,
