@@ -1,22 +1,30 @@
 import NewestFirst from "./filter-buttons/NewestFirst"
 import OldestFirst from "./filter-buttons/OldestFirst"
-import MostContraversial from "./filter-buttons/MostContraversial"
+import MostControversial  from "./filter-buttons/MostControversial"
 import MostPopular from "./filter-buttons/MostPopular"
 
 import { appContext } from "./context/App"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export default function Filter() {
 
     const { newestFirst,
         oldestFirst,
         popularFirst,
-        mostContraversal } = useContext(appContext);
+        mostControversial  } = useContext(appContext);
+    
+
+    const btnsDefaults = {
+        newestFirst: false,
+        oldestFirst: true,
+        mostControversial : false,
+        mostPopular: false
+    }
+    const [activeBtns, setActiveBtns] = useState(btnsDefaults);
 
     return (
         <div
             className='
-            bg-my-light-blue
             w-full
             rounded-full
             mb-4
@@ -24,11 +32,11 @@ export default function Filter() {
             text-my-cream
             flex flex-row justify-center items-center gap-4'
         >
-            
-            <NewestFirst cb={newestFirst} />
-            <OldestFirst cb={oldestFirst} />
-            <MostPopular cb={popularFirst} />
-            <MostContraversial cb={mostContraversal} />
+            <span className='text-my-dark-blue'>Sort by:</span>
+            <NewestFirst cb={newestFirst} activeBtns={activeBtns} setActiveBtns={setActiveBtns} />
+            <OldestFirst cb={oldestFirst} activeBtns={activeBtns} setActiveBtns={setActiveBtns} />
+            <MostPopular cb={popularFirst} activeBtns={activeBtns} setActiveBtns={setActiveBtns} />
+            <MostControversial  cb={mostControversial } activeBtns={activeBtns} setActiveBtns={setActiveBtns} />
             
         </div>
     )

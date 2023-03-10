@@ -43,8 +43,8 @@ function App(props) {
             .catch(err => console.log(err));
     }
 
-    const mostContraversal = () => {
-         userAxios.get('/api/posts/sort/most-contraversial')
+    const mostControversial  = () => {
+         userAxios.get('/api/posts/sort/most-controversial ')
             .then(res => {
                 setAllPosts(res.data)      
             })
@@ -61,7 +61,7 @@ return (
         newestFirst,
         oldestFirst,
         popularFirst,
-        mostContraversal
+        mostControversial 
     }}
     >
         {props.children}

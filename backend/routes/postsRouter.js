@@ -170,7 +170,7 @@ router.get('/sort/:sortType', (req, res, next) => {
                 return res.json(posts);
             });
             break;
-        case 'most-contraversial':
+        case 'most-controversial':
             Post.find({ isHidden: false }).sort({ downvotes: -1 }).exec((err, posts) => {
                 if (err) {
                     res.status(500);
@@ -178,9 +178,9 @@ router.get('/sort/:sortType', (req, res, next) => {
                 }
 
                 res.status(200);
-                return res.json(posts);
+                return res.send(posts);
             });
-            break;
+            console.log("ran");
     }
 
 
