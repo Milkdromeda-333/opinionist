@@ -41,7 +41,8 @@ export default function Post(data) {
             "username": user.username
         }
 
-        userAxios.post('/api/comments/new-comment', commentObj)
+        if (textInput) {
+            userAxios.post('/api/comments/new-comment', commentObj)
             .then(res => {
                 userAxios.get(`/api/comments/${postId}`)
                     .then(res => {
@@ -51,6 +52,8 @@ export default function Post(data) {
             }).catch(err => console.log(err))
         
         setTextInput('');
+        }
+        
     }
 
     const toggleCommentSec = () => {
@@ -139,42 +142,44 @@ export default function Post(data) {
             </div>
 
             {/* post contents */}
-            <div className=''>
+            <div className='mb-2'>
                 <h2 className='font-bold text-lg my-2'>{title}</h2>
                 <p className='break-words'>{ description }</p>
             </div>
 
             {/* options */}
-            <div className='
-            flex flex-row justify-evenly items-center gap-4
-            border-t-2
-            mt-2
-            py-2'>
-                <div
-                onClick={handleDownvote}    
-                className={`
-                flex flex-row justify-center items-center gap-2
-                cursor-pointer
-                hover:text-red-500
-                ${isVoted.downvoted && 'text-red-600'}
-                `}>
-                    {downvotes.length}
-                    <span>Disagree</span>
-                    <FiThumbsDown />
-                </div>
-                <div
-                onClick={handleUpvote}
-                className={`
-                flex flex-row justify-center items-center gap-2
-                hover:text-green-500
-                cursor-pointer
-                ${isVoted.upvoted && 'text-green-600'}
-                `}>
-                    <FiThumbsUp />
-                    {upvotes.length}
-                    <span>Agree</span>
-                </div>
+            {
+                username !== user.username &&
+                <div className='
+                    flex flex-row justify-evenly items-center gap-4
+                    border-t-2
+                    py-2'>
+                    <div
+                    onClick={handleDownvote}    
+                    className={`
+                    flex flex-row justify-center items-center gap-2
+                    cursor-pointer
+                    hover:text-red-500
+                    ${isVoted.downvoted && 'text-red-600'}
+                    `}>
+                        {downvotes.length}
+                        <span>Disagree</span>
+                        <FiThumbsDown />
+                    </div>
+                    <div
+                    onClick={handleUpvote}
+                    className={`
+                    flex flex-row justify-center items-center gap-2
+                    hover:text-green-500
+                    cursor-pointer
+                    ${isVoted.upvoted && 'text-green-600'}
+                    `}>
+                        <FiThumbsUp />
+                        {upvotes.length}
+                        <span>Agree</span>
+                    </div>
             </div>
+            }
 
             {/* comment input */}
             <div className='flex flex-row justify-evenly items-center gap-2'>
