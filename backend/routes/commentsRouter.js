@@ -44,4 +44,17 @@ router.delete('/delete/:postId', (req, res, next) => {
     });
 });
 
+// get all comments from logged in user
+router.get('/user/:userId', (req, res, next) => {
+    Comment.find({ user: req.auth._id }, (err, comments) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(200);
+        return res.send(comments);
+    });
+});
+
 module.exports = router;
