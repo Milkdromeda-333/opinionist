@@ -15,8 +15,7 @@ export default function Profile() {
         <div className="
         pt-20
         mx-4
-        min-h-full
-        grid grid-cols-[2fr_1fr] gap-4"
+        flex flex-row justify-between items-start gap-16"
         >
             <ProfilePosts userPosts={userPosts} userComments={userComments} />
 

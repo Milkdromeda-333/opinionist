@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProfilePostCard from './ProfilePostCard';
+import Post from './Post';
 
 export default function ProfilePosts({userPosts, userComments}){
 
@@ -23,7 +23,7 @@ export default function ProfilePosts({userPosts, userComments}){
     }
 
     return (
-        <section className='text-my-cream'>
+        <section className='text-my-cream w-2/3'>
             
             {/* header */}
             <div
@@ -59,13 +59,13 @@ export default function ProfilePosts({userPosts, userComments}){
             {/* contents */}
             <div
                 className='
-                bg-my-dark-blue
                 w-full mt-4
-                border-2'
+                border-2
+                flex flex-col items-center gap-4'
             >
                 {isActive.posts ?
-                    userPosts.map(post => <ProfilePostCard input={post.title} />) :
-                    userComments.map(comment => <ProfilePostCard input={comment.comment} />)
+                    userPosts.map(post => <Post {...post} key={post._id} />) :
+                    userComments.map(post => <Post {...post} key={post._id} />)
                 }
             </div>
 

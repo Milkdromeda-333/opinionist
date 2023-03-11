@@ -5,6 +5,7 @@ export default function ProfileCard({user, userCommentsLength, userPostsNum}){
     return (
         <section
             className='
+            w-1/3
             bg-my-dark-blue text-my-cream'
         >
             <div className='

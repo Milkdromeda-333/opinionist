@@ -43,7 +43,7 @@ export default function Home() {
             w-full
             mx-auto
             md:w-[40%]
-            flex flex-col justify-center items-center gap-6
+            flex flex-col justify-center gap-6
             '>
                 {postsArr ? postsArr : "No posts. Maybe, make one yourself!"}
             </div>

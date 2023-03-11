@@ -1,4 +1,7 @@
 import { useContext, useEffect, useState} from 'react';
+import {
+  useLocation
+} from "react-router-dom";
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
@@ -17,6 +20,8 @@ import { context } from './context/User'
  
 export default function Post(data) {
     const { title, description, datePosted, username, _id: postId, upvotes, downvotes } = data;
+
+    const location = useLocation();
 
     const { user } = useContext(context);
     const { updateFeed, allPosts } = useContext(appContext);
@@ -100,14 +105,15 @@ export default function Post(data) {
     //     updateFeed()
     // }, [isVoted])
 
+    console.log(location)
     return (
-        <div className='
-        w-full
+        <div className={`
+        ${location.pathname == '/home' ? 'w-full' : 'w-2/3'}
         p-4
         text-my-cream
         bg-my-light-blue
         rounded-md
-        '>
+        `}>
             <div className="flex flex-row justify-between">
 
                 {/* card header */}
