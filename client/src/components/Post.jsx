@@ -104,8 +104,7 @@ export default function Post(data) {
     // useEffect(() => {
     //     updateFeed()
     // }, [isVoted])
-
-    console.log(location)
+    
     return (
         <div className={`
         w-full
