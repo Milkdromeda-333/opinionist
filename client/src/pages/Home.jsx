@@ -31,7 +31,8 @@ export default function Home() {
             <div className='w-full flex flex-col justify-center items-center my-4 relative md:hidden'>
                 <div className="text-my-dark-blue rounded-full bg-white p-4 flex flex-row justify-between items-center w-full"  onClick={toggleFilterMobile}>
                     <span>
-                        Sort by :</span>
+                        Sort by : 
+                    </span>
                     {isMobileFilterActive ? <BiUpArrow/>:<BiDownArrow />}
                 </div>
                 {isMobileFilterActive && <FilterMobile toggleFilterMobile={toggleFilterMobile} />}

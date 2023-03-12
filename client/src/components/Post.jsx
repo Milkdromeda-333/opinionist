@@ -108,7 +108,8 @@ export default function Post(data) {
     console.log(location)
     return (
         <div className={`
-        ${location.pathname == '/home' ? 'w-full' : 'w-2/3'}
+        w-full
+        ${location.pathname == '/home' ? 'w-full' : 'md:w-2/3'}
         p-4
         text-my-cream
         bg-my-light-blue

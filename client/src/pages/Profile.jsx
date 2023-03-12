@@ -12,10 +12,12 @@ export default function Profile() {
 
 
     return (
-        <div className="
+        <div className='
         pt-20
         mx-4
-        flex flex-row justify-between items-start gap-16"
+        flex flex-col-reverse  jusify-center items-start gap-4
+        md:gap-16
+        md:flex-row md:justify-between'
         >
             <ProfilePosts userPosts={userPosts} userComments={userComments} />
 

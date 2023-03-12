@@ -23,7 +23,7 @@ export default function ProfilePosts({userPosts, userComments}){
     }
 
     return (
-        <section className='text-my-cream w-2/3'>
+        <section className='text-my-cream w-full md:w-2/3'>
             
             {/* header */}
             <div
