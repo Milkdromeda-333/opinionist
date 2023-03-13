@@ -1,4 +1,4 @@
-import { formatDate } from './utils/formatDate.js';
+import formatDate from './utils/formatDate.js';
 import {context} from '../components/context/User'
 import { useContext, useEffect, useState } from 'react';
 import {TbTrashX} from 'react-icons/tb'
@@ -13,7 +13,7 @@ export default function Comment(props) {
 
     const deleteComment = () => {
         userAxios.delete(`/api/comments/delete/${_id}`)
-            .then(res => {
+            .then(() => {
                 userAxios.get(`/api/comments/${postId}`)
                     .then(res => {
                         setCommentsArr(res.data);

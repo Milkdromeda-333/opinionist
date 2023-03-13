@@ -10,7 +10,6 @@ const cors = require('cors');
 //  ROUTES
 const postsRouter = require('./routes/postsRouter');
 const commentsRouter = require('./routes/commentsRouter');
-const usersRouter = require('./routes/usersRouter');
 const authRouter = require('./routes/authRouter');
 
 // MIDDLEWARE
@@ -26,7 +25,6 @@ app.use('/auth', authRouter);
 app.use('/api', expressjwt({ secret: process.env.JWT_SECRET_KEY, algorithms: ['HS256'] }));
 app.use('/api/posts', postsRouter);
 app.use('/api/comments', commentsRouter);
-app.use('/api/user', usersRouter);
 
 // error handler
 app.use((err, req, res, next) => {

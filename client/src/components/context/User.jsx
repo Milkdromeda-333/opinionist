@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 import { useState } from 'react';
 
+import { userAxios } from '../utils/axiosHandlers';
+
 const context = createContext();
 
 function UserContextProvider(props) {
@@ -9,17 +11,36 @@ function UserContextProvider(props) {
 
     const [token, setToken] = useState(localStorage.getItem('auth'));
 
+    const [userComments, setUserComments] = useState([]);
+
     const [userPosts, setUserPosts] = useState([]);
+
+    const getUserComments = () => {
+        userAxios.get(`api/comments/user/${user._id}`)
+            .then(res => {
+                setUserComments(res.data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const getUserPosts = () => {
+        userAxios.get(`/api/posts/user/${user._id}`)
+            .then(res => {
+                setUserPosts(res.data);
+            }).catch(err => console.log(err));
+    }
 
     return (
         <context.Provider
             value={{
-            user,
-            setUser,
-            token,
-            setToken,
-            userPosts,
-            setUserPosts
+                user,
+                setUser,
+                token,
+                setToken,
+                userComments,
+                userPosts,
+                getUserPosts,
+                getUserComments
             }}
         >
             {props.children}

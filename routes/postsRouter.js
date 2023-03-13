@@ -16,6 +16,19 @@ router.get('/', (req, res, next) => {
 
 });
 
+// gets a singular post
+router.get('/:postId', (req, res, next) => {
+    Post.findOne({ _id: req.params.postId, isHidden: false }, (err, post) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        res.status(200);
+        return res.send(post);
+    });
+});
+
 // all posts of given user
 router.get('/user/:userId', (req, res, next) => {
 
@@ -38,10 +51,8 @@ router.post('/new', (req, res, next) => {
 
     const id = req.auth._id;
 
-    // this saves id to user for the new Post
     req.body.user = id;
 
-    // creates new post insatnce and saves it after
     const newPost = new Post(req.body);
 
     newPost.save((err, post) => {
@@ -57,8 +68,6 @@ router.post('/new', (req, res, next) => {
 
 // hides posts
 router.delete('/delete/:postId', (req, res, next) => {
-
-    console.log("params: " + req.params.postId);
 
     Post.updateOne({ _id: req.params.postId }, { isHidden: true }, (err, response) => {
         if (err) {
@@ -180,7 +189,6 @@ router.get('/sort/:sortType', (req, res, next) => {
                 res.status(200);
                 return res.send(posts);
             });
-            console.log("ran");
     }
 
 

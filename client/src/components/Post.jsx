@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState} from 'react';
+import {useLocation} from "react-router-dom";
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
@@ -9,29 +10,42 @@ import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
 import { userAxios } from './utils/axiosHandlers.js';
-import { formatDate } from './utils/formatDate.js';
+import formatDate from './utils/formatDate.js';
 
 import { appContext } from '../components/context/App';
 import { context } from './context/User'
 
  
 export default function Post(data) {
-    const { title, description, datePosted, username, _id: postId, upvotes, downvotes } = data;
+    const { title, description, datePosted, username, _id, upvotes, downvotes } = data;
+
+    const location = useLocation();
 
     const { user } = useContext(context);
-    const { updateFeed, allPosts } = useContext(appContext);
+    const { updatePost, allPosts, updateFeed } = useContext(appContext);
 
     const [btnEffect, setBtnEffect] = useState(false)
     const [isCommentsActive, setIsCommentsActive] = useState(false);
     const [textInput, setTextInput] = useState('');
     const [toggleMenu, setToggleMenu] = useState(false);
     const [commentsArr, setCommentsArr] = useState([]);
+    const [postData, setPostData] = useState({
+        title: title,
+        description: description,
+        datePosted: datePosted,
+        username: username,
+        _id: _id,
+        upvotes: upvotes,
+        downvotes: downvotes
+    });
+
     const [isVoted, setIsVoted] = useState({
         upvoted: upvotes.includes(user._id),
         downvoted: downvotes.includes(user._id)
     });
 
     const handlePostComment = () => {
+        
         setBtnEffect(true);
 
         const commentObj = {
@@ -44,7 +58,7 @@ export default function Post(data) {
         if (textInput) {
             userAxios.post('/api/comments/new-comment', commentObj)
             .then(res => {
-                userAxios.get(`/api/comments/${postId}`)
+                userAxios.get(`/api/comments/${postData._id}`)
                     .then(res => {
                         setCommentsArr(res.data);
                     })
@@ -53,7 +67,6 @@ export default function Post(data) {
         
         setTextInput('');
         }
-        
     }
 
     const toggleCommentSec = () => {
@@ -65,64 +78,63 @@ export default function Post(data) {
     }
 
     const handleDownvote = () => {
-        userAxios.put(`/api/posts/vote/${postId}/downvote`)
-            .then(() => {
+        userAxios.put(`/api/posts/vote/${postData._id}/downvote`)
+            .then(async () => {
                 setIsVoted(prev => ({
                     upvoted: false,
                     downvoted: !prev.downvoted
                 }));
-                updateFeed();
+                const newData = await updatePost(postData._id);
+                setPostData(newData.data);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }
 
     const handleUpvote = () => {
-        userAxios.put(`/api/posts/vote/${postId}/upvote`)
-            .then(() => {
+        userAxios.put(`/api/posts/vote/${postData._id}/upvote`)
+            .then(async () => {
                 setIsVoted(prev => ({
                     downvoted: false,
                     upvoted: !prev.upvoted
                 }));
-                updateFeed()
+                const newData = await updatePost(postData._id);
+                setPostData(newData.data);
             })
             .catch(err => console.log(err));
     }
 
     useEffect(() => {
-        userAxios.get(`/api/comments/${postId}`)
+        userAxios.get(`/api/comments/${postData._id}`)
             .then(res => {
                 setCommentsArr(res.data);
             })
             .catch(err => console.log(err));
     }, [])
-
-    // useEffect(() => {
-    //     updateFeed()
-    // }, [isVoted])
-
+    
     return (
-        <div className='
+        <div className={`
         w-full
+        ${location.pathname == '/home' ? 'w-full' : 'md:w-2/3'}
         p-4
         text-my-cream
         bg-my-light-blue
         rounded-md
-        '>
+        `}>
             <div className="flex flex-row justify-between">
 
                 {/* card header */}
                 <div className='flex flex-row justify-start gap-2'>
                     <img
-                        src={`https://ui-avatars.com/api/?name=${username}&rounded=true`} alt='avater'
+                        src={`https://ui-avatars.com/api/?name=${postData.username}&rounded=true`} alt='avater'
                         className='w-10'
                     />
                     <div className='flex flex-col justify-start'>
-                        <span> @{username}</span>
-                        <span className='text-xs'> {formatDate(datePosted)}</span>
+                        <span> @{postData.username}</span>
+                        <span className='text-xs'> {formatDate(postData.datePosted)}</span>
                     </div>
                 </div>
 
-                {username === user.username &&
+                {postData.username === user.username &&
                     <div className="relative z-0">
 
                         <HiOutlineDotsVertical
@@ -134,7 +146,7 @@ export default function Post(data) {
                             onClick={togglePostMenu}
                         />
 
-                        {toggleMenu && <PostMenu postId={postId} />}
+                        {toggleMenu && <PostMenu postId={postData._id} />}
                         
                     </div>
                 }
@@ -143,8 +155,8 @@ export default function Post(data) {
 
             {/* post contents */}
             <div className='mb-2'>
-                <h2 className='font-bold text-lg my-2'>{title}</h2>
-                <p className='break-words'>{ description }</p>
+                <h2 className='font-bold text-lg my-2'>{postData.title}</h2>
+                <p className='break-words'>{ postData.description }</p>
             </div>
 
             {/* options */}
@@ -153,7 +165,7 @@ export default function Post(data) {
                     flex flex-row justify-evenly items-center gap-4
                     border-t-2
                     py-2'>
-                        { username !== user.username ?
+                        { postData.username !== user.username ?
                             <>
                                 <div
                                 onClick={handleDownvote}    
@@ -163,7 +175,7 @@ export default function Post(data) {
                                 hover:text-red-500
                                 ${isVoted.downvoted && 'text-red-600'}
                                 `}>
-                                    {downvotes.length}
+                                    {postData.downvotes.length}
                                     <span>Disagree</span>
                                     <FiThumbsDown />
                                 </div>
@@ -176,7 +188,7 @@ export default function Post(data) {
                                 ${isVoted.upvoted && 'text-green-600'}
                                 `}>
                                     <FiThumbsUp />
-                                    {upvotes.length}
+                                    {postData.upvotes.length}
                                     <span>Agree</span>
                                 </div>
                             </>
@@ -195,7 +207,7 @@ export default function Post(data) {
                                 flex flex-row justify-center items-center gap-2
                                 `}>
                                     <FiThumbsUp />
-                                    {upvotes.length}
+                                    {postData.upvotes.length}
                                     <span>Agree</span>
                                 </div>
                             </>
@@ -237,7 +249,7 @@ export default function Post(data) {
                 hover:text-my-tan'
                 onClick={toggleCommentSec}
                 >
-                    <VscCommentDiscussion className='text-3xl' />
+                    <VscCommentDiscussion className='text-2xl' />
                     {/*!TODO add number of comments */}
                     <span className=''>view {commentsArr.length} comments</span>
                     </div>

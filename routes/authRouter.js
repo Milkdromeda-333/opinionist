@@ -10,8 +10,6 @@ function createToken(payload) {
     return jwt.sign(payload, process.env.JWT_SECRET_KEY);
 }
 
-// ROUTE HANDLERS
-
 // signup
 authRouter.post('/signup', (req, res, next) => {
     User.findOne({ username: req.body.username }, (err, user) => {

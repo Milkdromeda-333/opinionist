@@ -1,4 +1,4 @@
-import { createContext, useEffect } from 'react';
+import { createContext } from 'react';
 import { useState } from 'react';
 import { userAxios } from '../utils/axiosHandlers';
 
@@ -17,7 +17,13 @@ function App(props) {
             .catch(err => console.log(err))
     }
 
-    // posts filter.
+    const updatePost = async (postId) => {
+        let data = await userAxios.get(`/api/posts/${postId}`)
+            .catch(err => console.log(err));
+        return data;
+    }
+
+    // posts filters.
 
     const newestFirst = () => {
         userAxios.get('/api/posts/sort/newest-first')
@@ -53,15 +59,16 @@ function App(props) {
 return (
     <appContext.Provider
         value={{
-        allPosts,
-        setAllPosts,
-        isNewPostOpen,
-        setIsNewPostOpen,
-        updateFeed,
-        newestFirst,
-        oldestFirst,
-        popularFirst,
-        mostControversial 
+            allPosts,
+            setAllPosts,
+            isNewPostOpen,
+            setIsNewPostOpen,
+            updateFeed,
+            updatePost,
+            newestFirst,
+            oldestFirst,
+            popularFirst,
+            mostControversial 
     }}
     >
         {props.children}

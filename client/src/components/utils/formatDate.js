@@ -1,11 +1,11 @@
 
 const formatDate = (date) => {
-    const dateArr = date.split('');
+    let dateArr = date.split('');
     const splitIndex = dateArr.findIndex(elem => elem === 'T');
     dateArr.splice(splitIndex);
-    return dateArr.join('').split('-').reverse().join('-');
+    dateArr = dateArr.join('').split('-');
+    const [year, month, day] = dateArr;
+    return `${month}-${day}-${year}`;
 };
 
-export {
-    formatDate
-};
+export default formatDate;

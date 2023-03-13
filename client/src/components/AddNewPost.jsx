@@ -8,8 +8,8 @@ import Error from './Error';
 
 export default function AddNewPost({ closeModal, isNewPostOpen }) {
     
-    const { user } = useContext(context);
-    const { setAllPosts } = useContext(appContext);
+    const { user, getUserPosts } = useContext(context);
+    const { updateFeed } = useContext(appContext);
 
     const [textInput, setTextInput] = useState('');
     const [titleInput, setTitleInput] = useState('');
@@ -21,7 +21,6 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
         setTitleInput(value);
     }
 
-    // TODO! add error component
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!textInput || !titleInput) {
@@ -34,17 +33,12 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
             description: textInput,
             username: user.username
         })
-        .then(res => {
+        .then(() => {
             setTextInput('');
             setTitleInput('');
             closeModal();
-            userAxios.get('/api/posts')
-                .then(res => setAllPosts(res.data))
-                .catch(err => {
-                    console.log(err);
-                    showErrComponent(true)
-                })
-
+            updateFeed();
+            getUserPosts();
     }).catch(err => {
         console.log(err)
         showErrComponent(true)
@@ -60,7 +54,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
     const showErrComponent = (state, message) => {
         setShowErr(state);
         setErrMessage(message)
-        // DOCS: if false, do not set state back to true lol.
+        
         if (state) {
             setTimeout(() => {
             setShowErr(false);
@@ -96,6 +90,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                 text-my-cream
                 hover:text-my-cream-tone'
                 />
+                
                 <form className='
                 flex flex-col justify-center items-center gap-4
                 text-my-cream'
@@ -111,6 +106,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                             mr-auto
                             text-lg'
                         > Title:</label>
+                        
                         <input type='title'
                         placeholder='Enter title here.'
                         onChange={handleTitleChange}
@@ -124,7 +120,9 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                         text-base
                         focus:outline focus:outline-[3px]'
                         />
+                        
                     </div>
+                    
                     <div className='
                     flex flex-col items-center
                     w-11/12
@@ -135,6 +133,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                         mr-auto
                         text-lg'
                         > Post details:</label>
+                        
                         <ResizableTextArea
                         textInput={textInput}
                         setTextInput={setTextInput}
@@ -143,8 +142,9 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                         placeholder='Enter your post details here.'
                         height='200px'
                         />
+                    
                         <div className='
-                        flex flex-row justify-end items-end gap-2
+                        flex flex-row-reverse justify-start items-end gap-2
                         w-full
                         '>
                             <button
@@ -159,7 +159,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                             w-full
                             md:w-auto
                             hover:outline'
-                                >Clear</button>
+                            > Clear </button>
             
                             <button
                             onClick={ handleSubmit }
@@ -173,9 +173,8 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
                             w-full
                             md:w-auto
                             hover:outline'
-                                >Submit</button>
+                            > Submit </button>
                         </div>
-            
                     </div>
                 </form>
             </div>
