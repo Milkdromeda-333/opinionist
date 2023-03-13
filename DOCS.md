@@ -100,7 +100,7 @@ yarn add bcrypt --target_arch=x64
 
 and it tends to work.
 
-- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2. Works like a charm.
+- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2. Sometimes i get the ELF header error, but I am able to fix it by uninstalling and re-installing it again.
 
 - I was able to bypass cors by setting `app.use(cors())`
 

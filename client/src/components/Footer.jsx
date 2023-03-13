@@ -9,7 +9,7 @@ export default function Footer(){
             h-10 w-full mt-10
             grid place-content-center'
         >
-            Made by Anjanique M. 🌍
+            Developed by Anjanique M. 🌍
         </footer>
     )
 }

@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 
 // gets a singular post
 router.get('/:postId', (req, res, next) => {
-    Post.findOne({ _id: req.params.postId }, (err, post) => {
+    Post.findOne({ _id: req.params.postId, isHidden: false }, (err, post) => {
         if (err) {
             res.status(500);
             return next(new Error(err));
