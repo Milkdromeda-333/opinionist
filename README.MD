@@ -13,5 +13,3 @@ I faced a lot of challenges, too many to name here. But, during the development 
 - Commit your code more often.
 
 - Save time by having an MVP in mind.
-
-- 
