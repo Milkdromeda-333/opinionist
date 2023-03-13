@@ -61,7 +61,6 @@ router.get('/user/:userId', (req, res, next) => {
                 return next(new Error(err));
             }
 
-            console.log(posts);
             res.status(200);
             return res.send(posts);
         });

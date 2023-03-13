@@ -1,12 +1,4 @@
 
-
-export default function Home(){
-
-    return (
-        <></>
-    )
-}
-
 NOTES:
 
 - When you face burn-out and are tired, and fel like giving up, take a break. Come back with a plan. You're tired, an a fresh perspective will be useful. (This has helped me withing the span of this project 2x)
@@ -125,8 +117,5 @@ and it tends to work.
 
 TOFIX:
 - z index of navbar components
-- when error component is open in addNewPost, the close modal doesn't work.
-- formatDates is backwards with the month and day.
-- voting is woncky. SOmetimes it works perfectly, other times the updates dont happen until the next call of updateFeed(). Possibly fixed with a useEffect. I had to take it out o now its broken again.
 
 ---

@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { context } from './context/User';
 import axios from 'axios';
 
@@ -13,8 +12,6 @@ export default function AuthForm({ isUserCreatingAcc, setIsUserCreatingAcc, show
     const [inputs, setInputs] = useState(inputDefault);
 
     const { user, setUser, setToken } = useContext(context);
-    
-    const navigate = useNavigate();
 
     const handleInput = (e) => {
         const { name, value } = e.target;

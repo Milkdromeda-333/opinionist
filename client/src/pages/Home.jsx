@@ -1,5 +1,5 @@
 import Post from '../components/Post';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { appContext } from '../components/context/App';
 import Filter from '../components/Filter';
 import FilterMobile from '../components/FilterMobile';

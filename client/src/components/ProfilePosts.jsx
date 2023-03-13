@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Post from './Post';
 
 export default function ProfilePosts({ userPosts, userComments }) {
@@ -21,12 +21,6 @@ export default function ProfilePosts({ userPosts, userComments }) {
             comments: true
         })
     }
-
-    
-    // useEffect(() => {
-    //     getUserPosts();
-    //     getUserComments();
-    // }, []);
 
     return (
         <section className='text-my-cream w-full md:w-2/3'>

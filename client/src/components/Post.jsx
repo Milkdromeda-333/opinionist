@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState} from 'react';
-import {
-  useLocation
-} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { BiSend } from 'react-icons/bi'
@@ -12,7 +10,7 @@ import ResizableTextArea from './ResizableTextarea';
 import PostMenu from './PostMenu';
 import CommentsSection from './CommentsSection'
 import { userAxios } from './utils/axiosHandlers.js';
-import { formatDate } from './utils/formatDate.js';
+import formatDate from './utils/formatDate.js';
 
 import { appContext } from '../components/context/App';
 import { context } from './context/User'
@@ -40,12 +38,14 @@ export default function Post(data) {
         upvotes: upvotes,
         downvotes: downvotes
     });
+
     const [isVoted, setIsVoted] = useState({
         upvoted: upvotes.includes(user._id),
         downvoted: downvotes.includes(user._id)
     });
 
     const handlePostComment = () => {
+        
         setBtnEffect(true);
 
         const commentObj = {

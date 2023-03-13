@@ -24,7 +24,6 @@ router.get('/:postId', (req, res, next) => {
             return next(new Error(err));
         }
 
-        console.log(post);
         res.status(200);
         return res.send(post);
     });
@@ -71,8 +70,6 @@ router.post('/new', (req, res, next) => {
 
 // hides posts
 router.delete('/delete/:postId', (req, res, next) => {
-
-    console.log("params: " + req.params.postId);
 
     Post.updateOne({ _id: req.params.postId }, { isHidden: true }, (err, response) => {
         if (err) {
@@ -194,7 +191,6 @@ router.get('/sort/:sortType', (req, res, next) => {
                 res.status(200);
                 return res.send(posts);
             });
-            console.log("ran");
     }
 
 

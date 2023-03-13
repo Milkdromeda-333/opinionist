@@ -13,13 +13,11 @@ export default function Auth() {
     const [errMessage, setErrMessage] = useState('');
 
     const showErrComponent = (state, message) => {
-        // DOCS: if i ever need to set it to false manually elsewhere, i can just pass in false instead of wait for the timer. Like an exit button
-        // DOCS: message is optional
 
         setErrMessage(message);
         setShowErr(state);
 
-        // DOCS: if false, do net set state back to true lol.
+        // DOCS: if false, do not set state back to true lol.
         if (state) {
             setTimeout(() => {
             setShowErr(false);

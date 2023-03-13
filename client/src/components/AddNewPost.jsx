@@ -21,7 +21,6 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
         setTitleInput(value);
     }
 
-    // TODO! add error component
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!textInput || !titleInput) {
@@ -55,7 +54,7 @@ export default function AddNewPost({ closeModal, isNewPostOpen }) {
     const showErrComponent = (state, message) => {
         setShowErr(state);
         setErrMessage(message)
-        // DOCS: if false, do not set state back to true lol.
+        
         if (state) {
             setTimeout(() => {
             setShowErr(false);

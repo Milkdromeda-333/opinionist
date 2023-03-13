@@ -8,6 +8,4 @@ const formatDate = (date) => {
     return `${month}-${day}-${year}`;
 };
 
-export {
-    formatDate
-};
+export default formatDate;

@@ -25,11 +25,11 @@ export default function Navbar() {
 		})
 		localStorage.clear();
 		setToken("");
-		return navigate('/')
+		return navigate('/');
 	}
 
 	const toggleNewPostModal = () => {
-		setIsNavOpen(prev => !prev)
+		setIsNavOpen(prev => !prev);
 		setIsNewPostOpen(true);
 	}
 
