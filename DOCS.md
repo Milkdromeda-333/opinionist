@@ -1,7 +1,9 @@
 
 NOTES:
 
-- When you face burn-out and are tired, and fel like giving up, take a break. Come back with a plan. You're tired, an a fresh perspective will be useful. (This has helped me withing the span of this project 2x)
+- When you face burn-out and are tired, and feel like giving up, take a break. Come back with a plan. You're tired, an a fresh perspective will be useful. (This has helped me withing the span of this project 2x)
+
+- I am using 'https://ui-avatars.com/'
 
 Challenging things I've done:
 
@@ -98,7 +100,7 @@ yarn add bcrypt --target_arch=x64
 
 and it tends to work.
 
-- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2
+- update: im continuing to have this issue and it wont fix with my method anymore, SOO i am looking for an alternative. I believe I was able to get my app going with argon2. Works like a charm.
 
 - I was able to bypass cors by setting `app.use(cors())`
 
@@ -106,9 +108,8 @@ and it tends to work.
 
 - I forgot that I wasn't using cookies anymore and I was hung up on that. After that I ran into other problems but was able to overcome the step by step with trouble-shooting.
 
-- I am using 'https://ui-avatars.com/'
 
-- Do not take so long to aks for help! You can save so much time that way, get to socialize with other devs, and you can learn something new.
+- Do not take so long to ask for help! You can save so much time that way, get to socialize with other devs, and you can learn something new.
 
 - req.query filters through a resource and has a question mark in the url. req.params are just in the url like normal.
 
