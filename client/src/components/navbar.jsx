@@ -25,6 +25,7 @@ export default function Navbar() {
 		})
 		localStorage.clear();
 		setToken("");
+		window.location.reload();
 		return navigate('/');
 	}
 

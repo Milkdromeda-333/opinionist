@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { userAxios } from '../utils/axiosHandlers';
 
@@ -29,11 +29,6 @@ function UserContextProvider(props) {
                 setUserPosts(res.data);
             }).catch(err => console.log(err));
     }
-
-    useEffect(() => {
-        getUserPosts();
-        getUserComments();
-    }, []);
 
     return (
         <context.Provider

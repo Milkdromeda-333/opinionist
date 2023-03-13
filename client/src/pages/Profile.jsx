@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { context } from '../components/context/User';
 import ProfileCard from '../components/ProfileCard';
@@ -8,7 +8,14 @@ export default function Profile() {
 
     const { user, 
             userComments,
-            userPosts } = useContext(context);
+            userPosts,
+            getUserPosts,
+            getUserComments} = useContext(context);
+    
+    useEffect(() => {
+        getUserPosts();
+        getUserComments();
+    }, []);
 
 
     return (
