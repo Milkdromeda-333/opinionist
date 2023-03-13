@@ -1,12 +1,18 @@
 import { Outlet  } from 'react-router-dom';
 import Navbar from './navbar';
+import Footer from './Footer';
 
 export default function Layout(){
 
     return (
-        <div className='min-h-[100vh] bg-my-cream'>
+        <div
+            className='
+            flex flex-col
+            bg-my-cream'
+        >
             <Navbar />
             <Outlet />
+            <Footer />
 		</div>
     )
 }

@@ -74,7 +74,6 @@ export default function Navbar() {
 			p-4
 			w-full
 			bg-my-dark-blue
-			shadow-lg
             sm:flex-row sm:static sm:w-auto sm:p-0 sm:z-0`}
 			>
 				<button onClick={toggleNewPostModal}
@@ -86,11 +85,17 @@ export default function Navbar() {
 					New Post
 				</button>
 
-				<Link to='/home' className='hover:text-my-cream-tone'>
+				<Link to='/home'
+					className='hover:text-my-cream-tone'
+					onClick={toggleHamburger}
+				>
 					Home
 				</Link>
 
-				<Link to='/profile' className='hover:text-my-cream-tone'>
+				<Link to='/profile'
+					className='hover:text-my-cream-tone'
+					onClick={toggleHamburger}
+				>
 					Profile
 				</Link>
 				

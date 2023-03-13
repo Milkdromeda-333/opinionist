@@ -16,6 +16,20 @@ router.get('/', (req, res, next) => {
 
 });
 
+// gets a singular post
+router.get('/:postId', (req, res, next) => {
+    Post.findOne({ _id: req.params.postId }, (err, post) => {
+        if (err) {
+            res.status(500);
+            return next(new Error(err));
+        }
+
+        console.log(post);
+        res.status(200);
+        return res.send(post);
+    });
+});
+
 // all posts of given user
 router.get('/user/:userId', (req, res, next) => {
 

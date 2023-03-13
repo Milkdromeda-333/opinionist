@@ -14,7 +14,7 @@ export default function Profile() {
     return (
         <div className='
         pt-20
-        mx-4
+        min-h-[100vh] mx-4
         flex flex-col-reverse  jusify-center items-start gap-4
         md:gap-16
         md:flex-row md:justify-between'

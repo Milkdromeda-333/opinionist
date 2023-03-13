@@ -1,21 +1,23 @@
 import { userAxios } from './utils/axiosHandlers.js'
 import { appContext } from './context/App';
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { context } from './context/User';
 
 export default function PostMenu({ postId }) {
     
-    const { setAllPosts } = useContext(appContext);
+    const { updateFeed } = useContext(appContext);
+    const { getUserPosts } = useContext(context);
+    const location = useLocation();
 
     const deletePost = () => {
         userAxios.delete(`/api/posts/delete/${postId}`)
-            .then(res => {
-                console.log("Post successfully deleted." + res.data);
-
-                userAxios.get('/api/posts')
-                    .then(res => setAllPosts(res.data))
-                    .catch(err => {
-                        console.log(err);
-                    });
+            .then(() => {
+                if (location.pathname === '/profile') {
+                    getUserPosts();
+                } else {
+                    updateFeed();
+                }
             })
             .catch(err => {
             console.log(err)

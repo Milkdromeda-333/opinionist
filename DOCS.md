@@ -120,6 +120,8 @@ and it tends to work.
 
 - req.query filters through a resource and has a question mark in the url. req.params are just in the url like normal.
 
+- I was able to fix my issue with state not updating correctly byb googling how to set a variable in an axios function. I learned that I would need to catch the value in a variable by  making it asyncronous with async/await. I was able to pass it through context, and update the data. I then had an issue with my upvotes updting immediately and not the downvotes, so I went backwards through the functionality and looked for differences between the two.
+
 
 TOFIX:
 - z index of navbar components
