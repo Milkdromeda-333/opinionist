@@ -41,7 +41,6 @@ userSchema.pre('save', function (next) {
     const user = this;
     if (!user.isModified('password')) return next();
 
-    // hash pw and pass on to the next i guess, and pass hashed password to user
     try {
         const hash = argon2.hash(user.password);
         user.password = hash;
@@ -54,7 +53,6 @@ userSchema.pre('save', function (next) {
 // returns user without password
 userSchema.methods.withoutPassword = function () {
     user = this.toObject();
-    // delete removes a property from an object
     delete user.password;
     return user;
 };

@@ -51,10 +51,8 @@ router.post('/new', (req, res, next) => {
 
     const id = req.auth._id;
 
-    // this saves id to user for the new Post
     req.body.user = id;
 
-    // creates new post insatnce and saves it after
     const newPost = new Post(req.body);
 
     newPost.save((err, post) => {
