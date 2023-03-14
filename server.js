@@ -1,11 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-const PORT = 8080;
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const { expressjwt } = require('express-jwt');
 const cors = require('cors');
+const path = require("path");
 
 //  ROUTES
 const postsRouter = require('./routes/postsRouter');
@@ -14,11 +14,13 @@ const authRouter = require('./routes/authRouter');
 
 // MIDDLEWARE
 
+app.use(express.static(path.join(__dirname, "client", "build")));
+
 // CORS
 app.use(cors());
 
 app.use(morgan('dev'));
-app.use(express.json()); // parses requests for JSON
+app.use(express.json());
 
 // routing
 app.use('/auth', authRouter);
@@ -33,6 +35,10 @@ app.use((err, req, res, next) => {
         res.status(err.status);
     }
     return res.send({ errMsg: err.message });
+});
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, (err) => {
