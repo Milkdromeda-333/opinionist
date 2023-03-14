@@ -41,7 +41,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-app.listen(PORT, (err) => {
+app.listen(process.env.PORT, (err) => {
     if (err) {
         throw new Error(err);
     }
