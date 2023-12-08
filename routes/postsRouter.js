@@ -85,61 +85,47 @@ router.put('/vote/:postId/:vote', (req, res, next) => {
 
     const userId = req.auth._id;
 
-    if (req.params.vote === 'upvote') {
-
-        Post.findOne({ _id: req.params.postId }, (err, foundPost) => {
-            if (err) {
-                res.status(500);
-                return next(err);
-            }
-
-            if (foundPost.upvotes.includes(userId)) {
-
-                foundPost.upvotes = foundPost.upvotes.filter(user => user === userId);
-                foundPost.save();
-
-                res.status(201);
-                return res.send("success");
-
-            }
-
-            foundPost.upvotes.push(userId);
-            foundPost.downvotes = foundPost.downvotes.filter(user => user === userId);
-            foundPost.save();
-
-            res.status(201);
-            return res.send("success");
-
-        });
-
-        return;
-    }
-
     Post.findOne({ _id: req.params.postId }, (err, foundPost) => {
         if (err) {
             res.status(500);
             return next(err);
         }
 
-        if (foundPost.downvotes.includes(userId)) {
+        const removeUpvote = () => {
+            foundPost.upvotes = foundPost.upvotes.filter(id => id === userId);
+        };
 
-            foundPost.downvotes = foundPost.downvotes.filter(user => user === userId);
-            foundPost.save();
+        const removeDownvote = () => {
+            foundPost.downvotes = foundPost.downvotes.filter(id => id === userId);
+        };
 
-            res.status(201);
-            return res.send("success");
+        if (req.params.vote === 'upvote') {
+            if (foundPost.upvotes.includes(userId)) {
+                removeUpvote();
+            } else {
+                foundPost.upvotes.push(userId);
+                removeDownvote();
 
+            }
+        } else if (req.params.vote === 'downvote') {
+            if (foundPost.downvotes.includes(userId)) {
+                removeDownvote();
+            } else {
+                foundPost.downvotes.push(userId);
+                removeUpvote();
+            }
         }
 
-        foundPost.downvotes.push(userId);
-        foundPost.upvotes = foundPost.upvotes.filter(user => user === userId);
-        foundPost.save();
+        foundPost.save((err, result) => {
+            if (err) {
+                res.status(500);
+                return next(err);
+            };
 
-        res.status(201);
-        return res.send("success");
-
+            res.status(200);
+            return res.send(result);
+        });
     });
-
 });
 
 // sorts posts

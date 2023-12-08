@@ -52,6 +52,6 @@ app.listen(process.env.PORT, (err) => {
             throw err;
         }
         console.log('Connected to database');
+        console.log('Server is Successfully Running, and App is listening on http://localhost:' + process.env.PORT);
     });
-    console.log('Server is Successfully Running, and App is listening on port ' + PORT);
 });

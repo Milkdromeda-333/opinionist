@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const argon2 = require('argon2');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -37,18 +36,18 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-userSchema.pre('save', function (next) {
-    const user = this;
-    if (!user.isModified('password')) return next();
+// userSchema.pre('save', function (next) {
+//     const user = this;
+//     if (!user.isModified('password')) return next();
 
-    try {
-        const hash = argon2.hash(user.password);
-        user.password = hash;
-        next();
-    } catch (err) {
-        return next(err);
-    }
-});
+//     try {
+//         const hash = argon2.hash(user.password);
+//         user.password = hash;
+//         next();
+//     } catch (err) {
+//         return next(err);
+//     }
+// });
 
 // returns user without password
 userSchema.methods.withoutPassword = function () {
